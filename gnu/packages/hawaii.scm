@@ -17,7 +17,9 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages hawaii)
+  #:use-module (gnu packages glib)
   #:use-module (gnu packages kde-frameworks)
+  #:use-module (gnu packages pkg-config)
   #:use-module (gnu packages qt)
   #:use-module (guix build-system cmake)
   #:use-module (guix download)
@@ -54,3 +56,49 @@
     (description "Modules for fluid and dynamic applications development with
 QtQuick.")
     (license license:lgpl2.1+)))
+
+(define-public libhawaii
+  (package
+    (name "libhawaii")
+    (version "0.8.0")
+    (source (origin
+              (method url-fetch)
+              (uri (string-append
+                    "https://github.com/hawaii-desktop/libhawaii"
+                    "/releases/download/v" version "/"
+                    "libhawaii-" version ".tar.xz"))
+              (sha256
+               (base32
+                "0hl2q0s80wi11pjjsmd1icjm9lz00yi0jjvmygsmvxym3zkmapbw"))))
+    (build-system cmake-build-system)
+    (native-inputs
+     `(("extra-cmake-modules" ,extra-cmake-modules)
+       ("pkg-config" ,pkg-config)))
+    (inputs
+     `(("glib" ,glib)
+       ("qtbase" ,qtbase)
+       ("qtdeclarative" ,qtdeclarative)))
+    (arguments
+     `(#:configure-flags
+       (list (string-append "-DQML_INSTALL_DIR="
+                            (assoc-ref %outputs "out") "/qml"))
+       #:phases
+       (modify-phases %standard-phases
+         ;; install and check phase are swapped so that qml files
+         ;; are located in QML_INSTALL_DIR
+         (add-after 'install 'check-post-install
+           (assoc-ref %standard-phases 'check))
+         (delete 'check)
+         (add-before 'check-post-install 'check-setup
+           (lambda* (#:key outputs #:allow-other-keys)
+             (setenv "QML2_IMPORT_PATH"
+                     (string-append (getenv "QML2_IMPORT_PATH") ":"
+                                    (assoc-ref outputs "out") "/qml"))
+             (setenv "QT_QPA_PLATFORM" "offscreen")
+             #t)))))
+    (home-page "https://github.com/hawaii-desktop/libhawaii")
+    (synopsis "Support library for the shell and applications")
+    (description "These are the libraries used by Hawaii Shell and other
+projects related to the Hawaii desktop environment.")
+    ;; Dual licensed
+    (license (list license:gpl2+ license:lgpl3+))))
