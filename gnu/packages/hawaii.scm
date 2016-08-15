@@ -17,9 +17,13 @@
 ;;; along with GNU Guix.  If not, see <http://www.gnu.org/licenses/>.
 
 (define-module (gnu packages hawaii)
+  #:use-module (gnu packages display-manager)
+  #:use-module (gnu packages freedesktop)
   #:use-module (gnu packages glib)
+  #:use-module (gnu packages gstreamer)
   #:use-module (gnu packages kde-frameworks)
   #:use-module (gnu packages pkg-config)
+  #:use-module (gnu packages polkit)
   #:use-module (gnu packages qt)
   #:use-module (guix build-system cmake)
   #:use-module (guix download)
@@ -102,3 +106,74 @@ QtQuick.")
 projects related to the Hawaii desktop environment.")
     ;; Dual licensed
     (license (list license:gpl2+ license:lgpl3+))))
+
+(define-public hawaii-workspace
+  (package
+    (name "hawaii-workspace")
+    (version "0.8.1")
+    (source (origin
+              (method url-fetch)
+              (uri (string-append
+                    "https://github.com/hawaii-desktop/hawaii-workspace"
+                    "/releases/download/v" version "/"
+                    "hawaii-workspace-" version ".tar.xz"))
+              (sha256
+               (base32
+                "17jysr2zcbcph9v13w0qh8z7gwh01v45673sa74ybld1g5gw72bi"))))
+    (build-system cmake-build-system)
+    (native-inputs
+     `(("extra-cmake-modules" ,extra-cmake-modules)
+       ("glib:bin" ,glib "bin")
+       ("pkg-config" ,pkg-config)
+       ("qttools" ,qttools)))
+    (inputs
+     `(("fluid" ,fluid)
+       ("glib" ,glib)
+       ("greenisland" ,greenisland)
+       ("hawaii-wallpapers" ,hawaii-wallpapers)
+       ("libhawaii" ,libhawaii)
+       ("polkit-qt" ,polkit-qt)
+       ("qtbase" ,qtbase)
+       ("qtdeclarative" ,qtdeclarative)
+       ("qtquickcontrols" ,qtquickcontrols)
+       ("qtquickcontrols2" ,qtquickcontrols2)
+       ("qt-gstreamer" ,qt-gstreamer)
+       ("wayland" ,wayland)))
+    (arguments
+     `(#:configure-flags
+       (list (string-append "-DGSETTINGS_SCHEMA_DIR="
+                            (assoc-ref %outputs "out") "/share/glib-2.0/schemas")
+             (string-append "-DQT_PLUGIN_INSTALL_DIR="
+                            (assoc-ref %outputs "out") "/plugins"))
+       #:modules ((guix build cmake-build-system)
+                  (guix build qt-utils)
+                  (guix build utils))
+       #:imported-modules (,@%cmake-build-system-modules
+                           (guix build qt-utils))
+       #:phases
+       (modify-phases %standard-phases
+         (add-after 'unpack 'patch-schemas
+           (lambda* (#:key inputs #:allow-other-keys)
+             (let ((hawaii-wallpapers (assoc-ref inputs "hawaii-wallpapers")))
+               (substitute* (find-files "data/settings" "\\.xml\\.in$")
+                 (("@KDE_INSTALL_FULL_DATADIR@")
+                  (string-append hawaii-wallpapers "/share"))))
+             #t))
+         (add-after 'install 'glib-compile-schemas
+           (lambda* (#:key outputs #:allow-other-keys)
+             (zero? (system* "glib-compile-schemas"
+                             (string-append (assoc-ref outputs "out")
+                                            "/share/glib-2.0/schemas")))))
+         (add-after 'install 'wrap-programs
+           (lambda* (#:key outputs #:allow-other-keys)
+             (let ((out (assoc-ref outputs "out")))
+               (wrap-qt-program out "hawaii-polkit-agent")
+               (wrap-qt-program out "hawaii-powermanager")
+               (wrap-qt-program out "hawaii-screencast")
+               (wrap-qt-program out "hawaii-screenshot")
+               #t))))))
+    (home-page "https://github.com/hawaii-desktop/hawaii-workspace")
+    (synopsis "Base applications for Hawaii")
+    (description "Base applications for the Hawaii desktop environment.")
+    ;; Dual licensed
+    (license (list license:gpl2+ license:lgpl2.1+))))
