@@ -1,0 +1,1055 @@
+From 529d1ebc70456c7ca79ad23f169e43c70b29e773 Mon Sep 17 00:00:00 2001
+From: David Craven <david@craven.ch>
+Date: Sat, 27 Aug 2016 18:46:27 +0200
+Subject: [PATCH] Squashed commit of the following:
+
+commit 726ec9092b17d4e6f00e38899fa5b0989effb0e2
+Author: Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
+Date:   Fri Aug 5 21:44:20 2016 +0200
+
+    Make sure window switcher uses the dark theme
+
+commit e51dba2b0f14641b0e1855dbb8fb20e3beebfa68
+Author: Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
+Date:   Fri Aug 5 21:18:42 2016 +0200
+
+    Update virtual keyboard import
+
+commit 76a0a98b5d47c9859cc8846560cd94779c36bbc9
+Author: Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
+Date:   Fri Aug 5 21:15:46 2016 +0200
+
+    Fix RunCommand close policy
+
+    QQC2 changed the enum.
+
+commit bf46bcbd1550e73bf7620b54b97dd4315f9c8398
+Author: Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
+Date:   Mon Aug 1 08:15:14 2016 +0200
+
+    Do not set QT_QUICK_CONTROLS_STYLE twice
+
+commit 14b3bb6b91e20555e89f4e9161e5b807f73e008d
+Author: Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
+Date:   Mon Aug 1 08:00:23 2016 +0200
+
+    Fix calendar view
+
+commit 99b711c5970e2198365c10906fb85e42b029c66b
+Author: Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
+Date:   Mon Aug 1 07:36:10 2016 +0200
+
+    Dark theme for drawers
+
+commit 8a0c82323f4491ae0cbccc60a6742bd689135418
+Author: Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
+Date:   Mon Aug 1 07:33:15 2016 +0200
+
+    Port launcher popup to QtQuick Controls 2.0
+
+commit 13394171f17ad71c9a1fccd37aebab08ab9e08e3
+Author: Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
+Date:   Sat Jul 23 18:37:58 2016 +0200
+
+    Fix drawers with QtQuick Controls 2.0
+
+commit cd53ebdac98461d08a0a94d272b15199db2ef842
+Author: Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
+Date:   Tue Jul 19 08:22:22 2016 +0200
+
+    Set default styles for Qt 5.7
+
+commit 45d46c3736d6131872b388c0980172e6d7a50b13
+Author: Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
+Date:   Tue Jul 19 08:20:45 2016 +0200
+
+    Set HiDPI support properly
+
+commit 262b30eac92705a9d4d405b75a0649385b0c8233
+Author: Pier Luigi Fiorini <pierluigi.fiorini@hawaiios.org>
+Date:   Tue Jul 19 00:52:32 2016 +0200
+
+    Port framework to QtQuick.Controls 2.0
+
+commit 0816402b39274e04d592990d6f732d61225a7504
+Author: Pier Luigi Fiorini <pierluigi.fiorini@hawaiios.org>
+Date:   Tue Jul 19 00:50:39 2016 +0200
+
+    Fix typo
+
+commit 2fa8c5d8e0166a8fa78ff32eba3bc7f20cc21fc3
+Author: Pier Luigi Fiorini <pierluigi.fiorini@hawaiios.org>
+Date:   Tue Jul 19 00:49:09 2016 +0200
+
+    Port to QtQuick Controls 2.0
+
+commit 533ca8162b757c8c2a5781dd510c8144839bcacc
+Merge: cd25c09 a14ca2c
+Author: Pier Luigi Fiorini <pierluigi.fiorini@hawaiios.org>
+Date:   Tue Jul 12 08:50:32 2016 +0200
+
+    Merge branch '0.7'
+
+commit cd25c092806e644657280079e3497eb76963db06
+Author: Pier Luigi Fiorini <plfiorini@users.noreply.github.com>
+Date:   Sat Jul 9 05:06:33 2016 +0200
+
+    Add hawaii-workspace dependency
+
+    Closes #227
+
+commit 38a140a9a909836ecfb8e4d5799feb802164ffc9
+Author: Pier Luigi Fiorini <pierluigi.fiorini@hawaiios.org>
+Date:   Wed Jul 6 00:13:23 2016 +0200
+
+    Bump version to 0.7.90
+
+commit 1b2ea9d0b1594dab19e0ad817ed021fcc4390bde
+Merge: b2bbc26 698ef2f
+Author: Pier Luigi Fiorini <pierluigi.fiorini@hawaiios.org>
+Date:   Tue Jul 5 23:46:58 2016 +0200
+
+    Merge branch '0.7'
+
+commit b2bbc26183b65bdc9175e110d5dba62f90f3180b
+Merge: 5355ba6 3e38e7b
+Author: Pier Luigi Fiorini <pierluigi.fiorini@hawaiios.org>
+Date:   Sun Jun 26 14:41:10 2016 +0200
+
+    Merge branch '0.7'
+
+commit 5355ba6d22243ff24b832cac70e7b7a61928935a
+Merge: 8025414 86ecfe3
+Author: Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
+Date:   Thu Jun 9 08:29:57 2016 +0200
+
+    Merge branch '0.7'
+
+commit 8025414eeb6f4c3491e89658e87649184fa2131a
+Author: Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
+Date:   Tue May 24 08:29:17 2016 +0200
+
+    Depends on Qt >= 5.7
+
+commit 4e5f84b9981931002beffff4e471df5fba14dca9
+Author: Pier Luigi Fiorini <pierluigi.fiorini@gmail.com>
+Date:   Tue May 24 08:27:58 2016 +0200
+
+    Port to QtQuick Controls 2.0
+
+    Use the stable version of the new controls.
+---
+ CMakeLists.txt                                 |  4 ++--
+ DEPENDENCIES.md                                |  1 +
+ compositor/main.cpp                            |  8 +++----
+ compositor/processlauncher/processlauncher.cpp |  2 --
+ framework/controls/Heading.qml                 |  2 +-
+ shell/Indicator.qml                            |  5 +++--
+ shell/Panel.qml                                |  2 +-
+ shell/RunCommand.qml                           |  6 +++---
+ shell/WindowSwitcher.qml                       |  6 ++++--
+ shell/components/Clock.qml                     |  2 +-
+ shell/components/MenuSeparator.qml             |  2 +-
+ shell/components/Overlay.qml                   |  4 ++--
+ shell/components/ToolButton.qml                |  4 ++--
+ shell/components/Tooltip.qml                   |  4 ++--
+ shell/controlcenter/CalendarView.qml           | 30 ++++++--------------------
+ shell/controlcenter/ControlCenter.qml          |  4 ++--
+ shell/decoration/WindowControls.qml            |  2 +-
+ shell/decoration/WindowDecoration.qml          |  2 +-
+ shell/decoration/WindowTitleBar.qml            |  4 ++--
+ shell/desktop/Desktop.qml                      | 13 ++++++-----
+ shell/desktop/HotCorner.qml                    |  2 +-
+ shell/desktop/Keyboard.qml                     |  2 +-
+ shell/desktop/Output.qml                       |  4 ++--
+ shell/desktop/PresentWindowsChrome.qml         |  4 ++--
+ shell/desktop/ScreenView.qml                   |  4 ++--
+ shell/desktop/Shell.qml                        | 17 +++++++++------
+ shell/desktop/WorkspacesView.qml               |  2 +-
+ shell/error/ErrorScreen.qml                    |  2 +-
+ shell/indicators/EventsIndicator.qml           |  2 +-
+ shell/indicators/LauncherIndicator.qml         |  2 +-
+ shell/indicators/NetworkIndicator.qml          |  2 +-
+ shell/indicators/StorageIndicator.qml          |  2 +-
+ shell/indicators/events/EventItem.qml          |  2 +-
+ shell/indicators/events/NotificationItem.qml   |  2 +-
+ shell/indicators/events/NotificationWindow.qml |  2 +-
+ shell/indicators/network/AirplaneMode.qml      |  2 +-
+ shell/indicators/network/ConnectionItem.qml    |  2 +-
+ shell/indicators/network/Header.qml            |  2 +-
+ shell/indicators/power/BatteryEntry.qml        |  2 +-
+ shell/indicators/sound/MprisItem.qml           |  2 +-
+ shell/indicators/sound/VolumeControl.qml       |  2 +-
+ shell/launcher/LauncherCategories.qml          |  2 +-
+ shell/launcher/LauncherDelegate.qml            |  4 ++--
+ shell/launcher/LauncherGridDelegate.qml        |  4 ++--
+ shell/launcher/LauncherMenu.qml                |  2 +-
+ shell/launcher/LauncherPopOver.qml             |  7 ++++--
+ shell/screens/LockScreen.qml                   |  4 ++--
+ shell/screens/LogoutScreen.qml                 |  4 ++--
+ shell/screens/SplashScreen.qml                 |  2 +-
+ shell/windows/WindowMenu.qml                   |  2 +-
+ 50 files changed, 96 insertions(+), 105 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index a5880dd..cca9c79 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -8,7 +8,7 @@ if(POLICY CMP0063)
+ endif()
+ 
+ # Set version
+-set(PROJECT_VERSION "0.7.1")
++set(PROJECT_VERSION "0.7.90")
+ set(PROJECT_VERSION_MAJOR 0)
+ set(PROJECT_SOVERSION 0)
+ 
+@@ -93,7 +93,7 @@ check_symbol_exists(PR_SET_DUMPABLE "sys/prctl.h" HAVE_PR_SET_DUMPABLE)
+ add_feature_info("prctl-dumpable" HAVE_PR_SET_DUMPABLE "Required to prevent ptrace on the compositor process")
+ 
+ # Minimum version requirements
+-set(QT_MIN_VERSION "5.6.0")
++set(QT_MIN_VERSION "5.7.0")
+ set(KF5_MIN_VERSION "5.1.0")
+ 
+ # Find Qt5
+diff --git a/DEPENDENCIES.md b/DEPENDENCIES.md
+index cc056ae..b8f1b88 100644
+--- a/DEPENDENCIES.md
++++ b/DEPENDENCIES.md
+@@ -21,6 +21,7 @@ The following modules and their dependencies are required:
+ 
+ * [ECM >= 1.4.0](http://quickgit.kde.org/?p=extra-cmake-modules.git)
+ * [greenisland](https://github.com/greenisland/greenisland)
++* [hawaii-workspace](https://github.com/hawaii-desktop/hawaii-workspace)
+ * [pam](http://www.linux-pam.org/)
+ * [libqtxdg](https://github.com/lxde/libqtxdg)
+ * [solid](http://quickgit.kde.org/?p=solid.git)
+diff --git a/compositor/main.cpp b/compositor/main.cpp
+index 6ff33d8..51f6001 100644
+--- a/compositor/main.cpp
++++ b/compositor/main.cpp
+@@ -66,8 +66,8 @@ static void setupEnvironment()
+ 
+     // Environment
+     qputenv("QT_QPA_PLATFORMTHEME", QByteArrayLiteral("Hawaii"));
+-    qputenv("QT_QUICK_CONTROLS_STYLE", QByteArrayLiteral("Base"));
+-    qputenv("QT_LABS_CONTROLS_STYLE", QByteArrayLiteral("material"));
++    qputenv("QT_QUICK_CONTROLS_1_STYLE", QByteArrayLiteral("Flat"));
++    qputenv("QT_QUICK_CONTROLS_STYLE", QByteArrayLiteral("material"));
+     qputenv("QT_WAYLAND_DECORATION", QByteArrayLiteral("HawaiiMaterialDecoration"));
+     qputenv("XCURSOR_THEME", QByteArrayLiteral("hawaii"));
+     qputenv("XCURSOR_SIZE", QByteArrayLiteral("16"));
+@@ -89,15 +89,13 @@ int main(int argc, char *argv[])
+     setupEnvironment();
+ 
+     // Application
++    QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+     QApplication app(argc, argv);
+     app.setApplicationName(QLatin1String("Hawaii"));
+     app.setApplicationVersion(QLatin1String(HAWAII_VERSION_STRING));
+     app.setOrganizationName(QLatin1String("Hawaii"));
+     app.setOrganizationDomain(QLatin1String("hawaiios.org"));
+-#if QT_VERSION >= QT_VERSION_CHECK(5, 6, 0)
+-    app.setAttribute(Qt::AA_EnableHighDpiScaling);
+     app.setFallbackSessionManagementEnabled(false);
+-#endif
+     app.setQuitOnLastWindowClosed(false);
+ 
+     // Set Qt platform for applications that will be executed from here
+diff --git a/compositor/processlauncher/processlauncher.cpp b/compositor/processlauncher/processlauncher.cpp
+index df1141b..32c294c 100644
+--- a/compositor/processlauncher/processlauncher.cpp
++++ b/compositor/processlauncher/processlauncher.cpp
+@@ -152,7 +152,6 @@ bool ProcessLauncher::launchCommand(const QString &command)
+         env.insert(QStringLiteral("WAYLAND_DISPLAY"), m_waylandSocketName);
+     env.insert(QStringLiteral("SAL_USE_VCLPLUGIN"), QStringLiteral("kde"));
+     env.insert(QStringLiteral("QT_PLATFORM_PLUGIN"), QStringLiteral("Hawaii"));
+-    env.insert(QStringLiteral("QT_QUICK_CONTROLS_STYLE"), QStringLiteral("Base"));
+     env.remove(QStringLiteral("QSG_RENDER_LOOP"));
+ 
+     QProcess *process = new QProcess(this);
+@@ -193,7 +192,6 @@ bool ProcessLauncher::launchEntry(const XdgDesktopFile &entry)
+         env.insert(QStringLiteral("WAYLAND_DISPLAY"), m_waylandSocketName);
+     env.insert(QStringLiteral("SAL_USE_VCLPLUGIN"), QStringLiteral("kde"));
+     env.insert(QStringLiteral("QT_PLATFORM_PLUGIN"), QStringLiteral("Hawaii"));
+-    env.insert(QStringLiteral("QT_QUICK_CONTROLS_STYLE"), QStringLiteral("Base"));
+     env.remove(QStringLiteral("QSG_RENDER_LOOP"));
+ 
+     QProcess *process = new QProcess(this);
+diff --git a/framework/controls/Heading.qml b/framework/controls/Heading.qml
+index 49dadcc..513879a 100644
+--- a/framework/controls/Heading.qml
++++ b/framework/controls/Heading.qml
+@@ -26,7 +26,7 @@
+  ***************************************************************************/
+ 
+ import QtQuick 2.1
+-import Qt.labs.controls 1.0 as LabsControls
++import QtQuick.Controls 2.0 as LabsControls
+ import Hawaii.Themes 1.0
+ 
+ /**
+diff --git a/shell/Indicator.qml b/shell/Indicator.qml
+index 463849b..b62126a 100644
+--- a/shell/Indicator.qml
++++ b/shell/Indicator.qml
+@@ -25,8 +25,9 @@
+  ***************************************************************************/
+ 
+ import QtQuick 2.0
+-import Qt.labs.controls 1.0
+-import Qt.labs.controls.material 1.0
++import QtQuick.Controls 2.0
++import QtQuick.Controls.Material 2.0
++import Hawaii.Themes 1.0 as Themes
+ import Fluid.Ui 1.0 as FluidUi
+ 
+ Item {
+diff --git a/shell/Panel.qml b/shell/Panel.qml
+index 6593222..2150c02 100644
+--- a/shell/Panel.qml
++++ b/shell/Panel.qml
+@@ -25,7 +25,7 @@
+  ***************************************************************************/
+ 
+ import QtQuick 2.0
+-import Qt.labs.controls.material 1.0
++import QtQuick.Controls.Material 2.0
+ import QtQuick.Layouts 1.1
+ import QtQml.Models 2.2
+ import GreenIsland 1.0
+diff --git a/shell/RunCommand.qml b/shell/RunCommand.qml
+index 6681a99..43b1459 100644
+--- a/shell/RunCommand.qml
++++ b/shell/RunCommand.qml
+@@ -26,13 +26,13 @@
+ 
+ import QtQuick 2.0
+ import QtQuick.Layouts 1.0
+-import Qt.labs.controls 1.0
+-import Qt.labs.controls.material 1.0
++import QtQuick.Controls 2.0
++import QtQuick.Controls.Material 2.0
+ import Fluid.Ui 1.0 as FluidUi
+ import org.hawaiios.launcher 0.1 as CppLauncher
+ 
+ Popup {
+-    closePolicy: Popup.OnEscape | Popup.OnPressOutside
++    closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
+     modal: true
+     focus: true
+     implicitWidth: layout.width + (2 * FluidUi.Units.largeSpacing)
+diff --git a/shell/WindowSwitcher.qml b/shell/WindowSwitcher.qml
+index 53e9a80..dd0910a 100644
+--- a/shell/WindowSwitcher.qml
++++ b/shell/WindowSwitcher.qml
+@@ -26,8 +26,8 @@
+ 
+ import QtQuick 2.0
+ import QtQuick.Layouts 1.0
+-import Qt.labs.controls 1.0
+-import Qt.labs.controls.material 1.0
++import QtQuick.Controls 2.0
++import QtQuick.Controls.Material 2.0
+ import GreenIsland 1.0 as GreenIsland
+ import Fluid.Ui 1.0 as FluidUi
+ 
+@@ -40,6 +40,8 @@ Popup {
+     implicitWidth: output.availableGeometry.width * 0.7
+     implicitHeight: thumbnailSize + label.paintedHeight + (2 * layout.spacing) + FluidUi.Units.largeSpacing
+ 
++    Material.theme: Material.Dark
++
+     Component {
+         id: thumbnailComponent
+ 
+diff --git a/shell/components/Clock.qml b/shell/components/Clock.qml
+index 8c555e9..9c4257b 100644
+--- a/shell/components/Clock.qml
++++ b/shell/components/Clock.qml
+@@ -26,7 +26,7 @@
+ 
+ import QtQuick 2.0
+ import QtQuick.Layouts 1.0
+-import Qt.labs.controls 1.0
++import QtQuick.Controls 2.0
+ 
+ ColumnLayout {
+     property string timeFormat
+diff --git a/shell/components/MenuSeparator.qml b/shell/components/MenuSeparator.qml
+index 30ab3a0..895197f 100644
+--- a/shell/components/MenuSeparator.qml
++++ b/shell/components/MenuSeparator.qml
+@@ -25,7 +25,7 @@
+  ***************************************************************************/
+ 
+ import QtQuick 2.0
+-import Qt.labs.controls.material 1.0
++import QtQuick.Controls.Material 2.0
+ import Fluid.Ui 1.0 as FluidUi
+ 
+ Rectangle {
+diff --git a/shell/components/Overlay.qml b/shell/components/Overlay.qml
+index badd6b1..cc414af 100644
+--- a/shell/components/Overlay.qml
++++ b/shell/components/Overlay.qml
+@@ -26,8 +26,8 @@
+ 
+ import QtQuick 2.2
+ import QtQuick.Layouts 1.0
+-import Qt.labs.controls 1.0
+-import Qt.labs.controls.material 1.0
++import QtQuick.Controls 2.0
++import QtQuick.Controls.Material 2.0
+ import Hawaii.Themes 1.0 as Themes
+ import Fluid.Ui 1.0 as FluidUi
+ 
+diff --git a/shell/components/ToolButton.qml b/shell/components/ToolButton.qml
+index 33bc452..60598ca 100644
+--- a/shell/components/ToolButton.qml
++++ b/shell/components/ToolButton.qml
+@@ -25,7 +25,7 @@
+  ***************************************************************************/
+ 
+ import QtQuick 2.0
+-import Qt.labs.controls 1.0
++import QtQuick.Controls 2.0
+ import Fluid.Ui 1.0 as FluidUi
+ 
+ ToolButton {
+@@ -38,6 +38,6 @@ ToolButton {
+         anchors.centerIn: parent
+         width: FluidUi.Units.iconSizes.small
+         height: width
+-        color: toolButton.label.color
++        color: toolButton.contentItem.color
+     }
+ }
+diff --git a/shell/components/Tooltip.qml b/shell/components/Tooltip.qml
+index 06c5cd9..fd60eec 100644
+--- a/shell/components/Tooltip.qml
++++ b/shell/components/Tooltip.qml
+@@ -25,8 +25,8 @@
+  ***************************************************************************/
+ 
+ import QtQuick 2.0
+-import Qt.labs.controls 1.0
+-import Qt.labs.controls.material 1.0
++import QtQuick.Controls 2.0
++import QtQuick.Controls.Material 2.0
+ import Hawaii.Themes 1.0 as Themes
+ import Fluid.Ui 1.0 as FluidUi
+ import "private" as Private
+diff --git a/shell/controlcenter/CalendarView.qml b/shell/controlcenter/CalendarView.qml
+index 147003e..8691678 100644
+--- a/shell/controlcenter/CalendarView.qml
++++ b/shell/controlcenter/CalendarView.qml
+@@ -26,8 +26,8 @@
+ 
+ import QtQuick 2.2
+ import QtQuick.Layouts 1.0
+-import Qt.labs.controls 1.0
+-import Qt.labs.controls.material 1.0
++import QtQuick.Controls 2.0
++import QtQuick.Controls.Material 2.0
+ import Qt.labs.calendar 1.0
+ import Hawaii.Themes 1.0 as Themes
+ import Fluid.Ui 1.0 as FluidUi
+@@ -66,8 +66,8 @@ Item {
+         anchors.margins: FluidUi.Units.smallSpacing
+         spacing: FluidUi.Units.largeSpacing
+ 
+-        GridLayout {
+-            columns: 2
++        ColumnLayout {
++            Layout.fillHeight: true
+ 
+             DayOfWeekRow {
+                 id: dayOfWeek
+@@ -79,23 +79,7 @@ Item {
+                     font: dayOfWeek.font
+                 }
+ 
+-                Layout.column: 1
+-                Layout.fillWidth: true
+-            }
+-
+-            WeekNumberColumn {
+-                id: weekNumber
+-                month: calendar.month
+-                year: calendar.year
+-                locale: calendar.locale
+-                font.bold: true
+-                delegate: Label {
+-                    text: model.weekNumber
+-                    horizontalAlignment: Text.AlignHCenter
+-                    verticalAlignment: Text.AlignVCenter
+-                    font: weekNumber.font
+-                }
+-
++                Layout.preferredWidth: FluidUi.Units.gu(20)
+                 Layout.fillHeight: true
+             }
+ 
+@@ -109,11 +93,9 @@ Item {
+                     opacity: model.month === calendar.month ? 1 : 0
+                 }
+ 
+-                Layout.fillWidth: true
++                Layout.preferredWidth: FluidUi.Units.gu(20)
+                 Layout.fillHeight: true
+             }
+-
+-            Layout.fillHeight: true
+         }
+ 
+         ListView {
+diff --git a/shell/controlcenter/ControlCenter.qml b/shell/controlcenter/ControlCenter.qml
+index 468fecb..63b8751 100644
+--- a/shell/controlcenter/ControlCenter.qml
++++ b/shell/controlcenter/ControlCenter.qml
+@@ -26,8 +26,8 @@
+ 
+ import QtQuick 2.0
+ import QtQuick.Layouts 1.0
+-import Qt.labs.controls 1.0
+-import Qt.labs.controls.material 1.0
++import QtQuick.Controls 2.0
++import QtQuick.Controls.Material 2.0
+ import Hawaii.Themes 1.0 as Themes
+ import Fluid.Ui 1.0 as FluidUi
+ import org.hawaiios.launcher 0.1 as CppLauncher
+diff --git a/shell/decoration/WindowControls.qml b/shell/decoration/WindowControls.qml
+index 3b16d6c..58e674c 100644
+--- a/shell/decoration/WindowControls.qml
++++ b/shell/decoration/WindowControls.qml
+@@ -25,7 +25,7 @@
+  ***************************************************************************/
+ 
+ import QtQuick 2.0
+-import Qt.labs.controls.material 1.0
++import QtQuick.Controls.Material 2.0
+ import Fluid.Ui 1.0 as FluidUi
+ 
+ Row {
+diff --git a/shell/decoration/WindowDecoration.qml b/shell/decoration/WindowDecoration.qml
+index fe7138d..090c430 100644
+--- a/shell/decoration/WindowDecoration.qml
++++ b/shell/decoration/WindowDecoration.qml
+@@ -25,7 +25,7 @@
+  ***************************************************************************/
+ 
+ import QtQuick 2.0
+-import Qt.labs.controls.material 1.0
++import QtQuick.Controls.Material 2.0
+ import GreenIsland 1.0
+ import Hawaii.Themes 1.0 as Themes
+ import Fluid.Ui 1.0 as FluidUi
+diff --git a/shell/decoration/WindowTitleBar.qml b/shell/decoration/WindowTitleBar.qml
+index 646d0fd..2479aa2 100644
+--- a/shell/decoration/WindowTitleBar.qml
++++ b/shell/decoration/WindowTitleBar.qml
+@@ -25,8 +25,8 @@
+  ***************************************************************************/
+ 
+ import QtQuick 2.0
+-import Qt.labs.controls 1.0
+-import Qt.labs.controls.material 1.0
++import QtQuick.Controls 2.0
++import QtQuick.Controls.Material 2.0
+ import QtQuick.Layouts 1.0
+ import Fluid.Ui 1.0 as FluidUi
+ 
+diff --git a/shell/desktop/Desktop.qml b/shell/desktop/Desktop.qml
+index c5b1be9..5cdf67a 100644
+--- a/shell/desktop/Desktop.qml
++++ b/shell/desktop/Desktop.qml
+@@ -25,7 +25,8 @@
+  ***************************************************************************/
+ 
+ import QtQuick 2.0
+-import Qt.labs.controls 1.0
++import QtQuick.Controls 2.0
++import QtQuick.Controls.Material 2.0
+ import Fluid.Ui 1.0 as FluidUi
+ import "../components" as CustomComponents
+ 
+@@ -45,17 +46,19 @@ Item {
+     Drawer {
+         id: topDrawer
+         edge: Qt.TopEdge
+-        onClicked: close()
++        width: window.width
++        height: FluidUi.Units.gu(25)
++
++        Material.theme: Material.Dark
+ 
+         Pane {
+-            width: window.width
+-            height: FluidUi.Units.gu(25)
++            anchors.fill: parent
+             padding: FluidUi.Units.largeSpacing
+ 
+             Loader {
+                 id: loader
+                 anchors.fill: parent
+-                active: topDrawer.expanded
++                active: topDrawer.position > 0.0
+                 source: "../controlcenter/ControlCenter.qml"
+ 
+                 Connections {
+diff --git a/shell/desktop/HotCorner.qml b/shell/desktop/HotCorner.qml
+index ac17d57..0f92a88 100644
+--- a/shell/desktop/HotCorner.qml
++++ b/shell/desktop/HotCorner.qml
+@@ -25,7 +25,7 @@
+  ***************************************************************************/
+ 
+ import QtQuick 2.0
+-import Qt.labs.controls.material 1.0
++import QtQuick.Controls.Material 2.0
+ import Fluid.Ui 1.0 as FluidUi
+ 
+ Rectangle {
+diff --git a/shell/desktop/Keyboard.qml b/shell/desktop/Keyboard.qml
+index a133b8f..1625da4 100644
+--- a/shell/desktop/Keyboard.qml
++++ b/shell/desktop/Keyboard.qml
+@@ -25,7 +25,7 @@
+  ***************************************************************************/
+ 
+ import QtQuick 2.5
+-import QtQuick.Enterprise.VirtualKeyboard 2.0
++import QtQuick.VirtualKeyboard 2.1
+ 
+ InputPanel {
+     id: keyboard
+diff --git a/shell/desktop/Output.qml b/shell/desktop/Output.qml
+index f742896..9c65d66 100644
+--- a/shell/desktop/Output.qml
++++ b/shell/desktop/Output.qml
+@@ -26,8 +26,8 @@
+ 
+ import QtQuick 2.5
+ import QtQuick.Window 2.2
+-import Qt.labs.controls 1.0
+-import Qt.labs.controls.material 1.0
++import QtQuick.Controls 2.0
++import QtQuick.Controls.Material 2.0
+ import GreenIsland 1.0 as GreenIsland
+ import Fluid.Ui 1.0 as FluidUi
+ import "../screens"
+diff --git a/shell/desktop/PresentWindowsChrome.qml b/shell/desktop/PresentWindowsChrome.qml
+index a176e21..788558b 100644
+--- a/shell/desktop/PresentWindowsChrome.qml
++++ b/shell/desktop/PresentWindowsChrome.qml
+@@ -26,8 +26,8 @@
+ 
+ import QtQuick 2.2
+ import QtGraphicalEffects 1.0
+-import Qt.labs.controls 1.0
+-import Qt.labs.controls.material 1.0
++import QtQuick.Controls 2.0
++import QtQuick.Controls.Material 2.0
+ import Hawaii.Themes 1.0 as Themes
+ import GreenIsland 1.0 as GreenIsland
+ import Fluid.Ui 1.0 as FluidUi
+diff --git a/shell/desktop/ScreenView.qml b/shell/desktop/ScreenView.qml
+index 1537ca9..987292e 100644
+--- a/shell/desktop/ScreenView.qml
++++ b/shell/desktop/ScreenView.qml
+@@ -26,8 +26,8 @@
+ 
+ import QtQuick 2.0
+ import QtGraphicalEffects 1.0
+-import Qt.labs.controls 1.0
+-import Qt.labs.controls.material 1.0
++import QtQuick.Controls 2.0
++import QtQuick.Controls.Material 2.0
+ import GreenIsland 1.0 as GreenIsland
+ import Fluid.Ui 1.0 as FluidUi
+ import org.hawaiios.misc 0.1 as Misc
+diff --git a/shell/desktop/Shell.qml b/shell/desktop/Shell.qml
+index 6ebd8bd..1aa99cc 100644
+--- a/shell/desktop/Shell.qml
++++ b/shell/desktop/Shell.qml
+@@ -25,7 +25,8 @@
+  ***************************************************************************/
+ 
+ import QtQuick 2.0
+-import Qt.labs.controls 1.0
++import QtQuick.Controls 2.0
++import QtQuick.Controls.Material 2.0
+ import Fluid.Ui 1.0 as FluidUi
+ import ".."
+ 
+@@ -54,18 +55,20 @@ Item {
+     Drawer {
+         property var lastIndicator: null
+ 
++        Material.theme: Material.Dark
++
+         id: rightDrawer
+         edge: Qt.RightEdge
+-        onClicked: {
+-            if (lastIndicator)
++        y: output.availableGeometry.y
++        width: Math.max(FluidUi.Units.dp(250), stackView.currentItem.implicitWidth) + (2 * padding)
++        height: output.availableGeometry.height
++        onPositionChanged: {
++            if (position == 0.0 && lastIndicator)
+                 lastIndicator.active = false;
+-            close();
+         }
+ 
+         Pane {
+-            y: output.availableGeometry.y
+-            width: Math.max(FluidUi.Units.dp(250), stackView.currentItem.implicitWidth) + (2 * padding)
+-            height: output.availableGeometry.height
++            anchors.fill: parent
+             padding: FluidUi.Units.largeSpacing
+ 
+             StackView {
+diff --git a/shell/desktop/WorkspacesView.qml b/shell/desktop/WorkspacesView.qml
+index ece6bf3..544018d 100644
+--- a/shell/desktop/WorkspacesView.qml
++++ b/shell/desktop/WorkspacesView.qml
+@@ -25,7 +25,7 @@
+  ***************************************************************************/
+ 
+ import QtQuick 2.0
+-import Qt.labs.templates 1.0 as ControlsTemplates
++import QtQuick.Templates 2.0 as ControlsTemplates
+ import Fluid.Ui 1.0 as FluidUi
+ 
+ ControlsTemplates.SwipeView {
+diff --git a/shell/error/ErrorScreen.qml b/shell/error/ErrorScreen.qml
+index eeae34a..a587d22 100644
+--- a/shell/error/ErrorScreen.qml
++++ b/shell/error/ErrorScreen.qml
+@@ -26,7 +26,7 @@
+ 
+ import QtQuick 2.0
+ import QtQuick.Layouts 1.0
+-import Qt.labs.controls 1.0
++import QtQuick.Controls 2.0
+ 
+ Rectangle {
+     gradient: Gradient {
+diff --git a/shell/indicators/EventsIndicator.qml b/shell/indicators/EventsIndicator.qml
+index 772e746..2d9e32c 100644
+--- a/shell/indicators/EventsIndicator.qml
++++ b/shell/indicators/EventsIndicator.qml
+@@ -27,7 +27,7 @@
+ 
+ import QtQuick 2.0
+ import QtQuick.Layouts 1.0
+-import Qt.labs.controls 1.0
++import QtQuick.Controls 2.0
+ import Hawaii.Controls 1.0 as Controls
+ import Hawaii.Themes 1.0 as Themes
+ import Fluid.Ui 1.0 as FluidUi
+diff --git a/shell/indicators/LauncherIndicator.qml b/shell/indicators/LauncherIndicator.qml
+index 94ee7a9..df27d20 100644
+--- a/shell/indicators/LauncherIndicator.qml
++++ b/shell/indicators/LauncherIndicator.qml
+@@ -38,7 +38,7 @@ Indicator {
+     Launcher.LauncherPopOver {
+         id: popover
+         x: FluidUi.Units.largeSpacing
+-        y: 50 //-height - FluidUi.Units.largeSpacing
++        y: -height - FluidUi.Units.largeSpacing
+         onAppLaunched: close()
+     }
+ }
+diff --git a/shell/indicators/NetworkIndicator.qml b/shell/indicators/NetworkIndicator.qml
+index 06da8ab..ef50b1e 100644
+--- a/shell/indicators/NetworkIndicator.qml
++++ b/shell/indicators/NetworkIndicator.qml
+@@ -26,7 +26,7 @@
+ 
+ import QtQuick 2.1
+ import QtQuick.Layouts 1.1
+-import Qt.labs.controls 1.0
++import QtQuick.Controls 2.0
+ import Hawaii.Controls 1.0 as Controls
+ import Fluid.Ui 1.0 as FluidUi
+ import org.hawaiios.networkmanager 0.1 as NM
+diff --git a/shell/indicators/StorageIndicator.qml b/shell/indicators/StorageIndicator.qml
+index 9ee0c6b..55ea218 100644
+--- a/shell/indicators/StorageIndicator.qml
++++ b/shell/indicators/StorageIndicator.qml
+@@ -26,7 +26,7 @@
+ 
+ import QtQuick 2.0
+ import QtQuick.Layouts 1.0
+-import Qt.labs.controls 1.0
++import QtQuick.Controls 2.0
+ import Hawaii.Controls 1.0 as Controls
+ import Fluid.Ui 1.0 as FluidUi
+ import org.hawaiios.hardware 0.1 as Hardware
+diff --git a/shell/indicators/events/EventItem.qml b/shell/indicators/events/EventItem.qml
+index 31eaf89..2063aeb 100644
+--- a/shell/indicators/events/EventItem.qml
++++ b/shell/indicators/events/EventItem.qml
+@@ -26,7 +26,7 @@
+ 
+ import QtQuick 2.0
+ import QtQuick.Layouts 1.0
+-import Qt.labs.controls 1.0
++import QtQuick.Controls 2.0
+ import Hawaii.Controls 1.0 as Controls
+ import Fluid.Ui 1.0 as FluidUi
+ 
+diff --git a/shell/indicators/events/NotificationItem.qml b/shell/indicators/events/NotificationItem.qml
+index 0d0111a..106992c 100644
+--- a/shell/indicators/events/NotificationItem.qml
++++ b/shell/indicators/events/NotificationItem.qml
+@@ -25,7 +25,7 @@
+  ***************************************************************************/
+ 
+ import QtQuick 2.0
+-import Qt.labs.controls 1.0
++import QtQuick.Controls 2.0
+ import Hawaii.Controls 1.0 as Controls
+ import Fluid.Ui 1.0 as FluidUi
+ 
+diff --git a/shell/indicators/events/NotificationWindow.qml b/shell/indicators/events/NotificationWindow.qml
+index 91eab5d..e53c021 100644
+--- a/shell/indicators/events/NotificationWindow.qml
++++ b/shell/indicators/events/NotificationWindow.qml
+@@ -25,7 +25,7 @@
+  ***************************************************************************/
+ 
+ import QtQuick 2.0
+-import Qt.labs.controls.material 1.0
++import QtQuick.Controls.Material 2.0
+ import Hawaii.Themes 1.0 as Themes
+ import Fluid.Ui 1.0 as FluidUi
+ import "../../components" as ShellComponents
+diff --git a/shell/indicators/network/AirplaneMode.qml b/shell/indicators/network/AirplaneMode.qml
+index fa49ef3..200f1cc 100644
+--- a/shell/indicators/network/AirplaneMode.qml
++++ b/shell/indicators/network/AirplaneMode.qml
+@@ -26,7 +26,7 @@
+ 
+ import QtQuick 2.0
+ import QtQuick.Layouts 1.0
+-import Qt.labs.controls 1.0
++import QtQuick.Controls 2.0
+ import Fluid.Ui 1.0 as FluidUi
+ 
+ RowLayout {
+diff --git a/shell/indicators/network/ConnectionItem.qml b/shell/indicators/network/ConnectionItem.qml
+index 5fe3bd2..bc3a212 100644
+--- a/shell/indicators/network/ConnectionItem.qml
++++ b/shell/indicators/network/ConnectionItem.qml
+@@ -28,7 +28,7 @@
+ 
+ import QtQuick 2.1
+ import QtQuick.Layouts 1.1
+-import Qt.labs.controls 1.0
++import QtQuick.Controls 2.0
+ import Fluid.Ui 1.0 as FluidUi
+ import org.hawaiios.misc 0.1 as Misc
+ import org.hawaiios.networkmanager 0.1 as NM
+diff --git a/shell/indicators/network/Header.qml b/shell/indicators/network/Header.qml
+index a5a91df..2f0abb1 100644
+--- a/shell/indicators/network/Header.qml
++++ b/shell/indicators/network/Header.qml
+@@ -26,7 +26,7 @@
+ 
+ import QtQuick 2.0
+ import QtQuick.Layouts 1.1
+-import Qt.labs.controls 1.0
++import QtQuick.Controls 2.0
+ import Fluid.Ui 1.0 as FluidUi
+ import "../../components" as CustomComponents
+ 
+diff --git a/shell/indicators/power/BatteryEntry.qml b/shell/indicators/power/BatteryEntry.qml
+index e776cb1..ba7a05c 100644
+--- a/shell/indicators/power/BatteryEntry.qml
++++ b/shell/indicators/power/BatteryEntry.qml
+@@ -26,7 +26,7 @@
+ 
+ import QtQuick 2.0
+ import QtQuick.Layouts 1.0
+-import Qt.labs.controls 1.0
++import QtQuick.Controls 2.0
+ import Fluid.Ui 1.0 as FluidUi
+ import org.hawaiios.hardware 0.1
+ 
+diff --git a/shell/indicators/sound/MprisItem.qml b/shell/indicators/sound/MprisItem.qml
+index e06dfea..a8c9f31 100644
+--- a/shell/indicators/sound/MprisItem.qml
++++ b/shell/indicators/sound/MprisItem.qml
+@@ -26,7 +26,7 @@
+ 
+ import QtQuick 2.0
+ import QtQuick.Layouts 1.0
+-import Qt.labs.controls 1.0
++import QtQuick.Controls 2.0
+ import Hawaii.Controls 1.0 as Controls
+ import Fluid.Ui 1.0 as FluidUi
+ import org.hawaiios.mpris2 0.1
+diff --git a/shell/indicators/sound/VolumeControl.qml b/shell/indicators/sound/VolumeControl.qml
+index 4ab2970..1c3313f 100644
+--- a/shell/indicators/sound/VolumeControl.qml
++++ b/shell/indicators/sound/VolumeControl.qml
+@@ -26,7 +26,7 @@
+ 
+ import QtQuick 2.0
+ import QtQuick.Layouts 1.0
+-import Qt.labs.controls 1.0
++import QtQuick.Controls 2.0
+ import Fluid.Ui 1.0 as FluidUi
+ import org.hawaiios.mixer 0.1 as MixerService
+ 
+diff --git a/shell/launcher/LauncherCategories.qml b/shell/launcher/LauncherCategories.qml
+index a4d26ac..ec07160 100644
+--- a/shell/launcher/LauncherCategories.qml
++++ b/shell/launcher/LauncherCategories.qml
+@@ -25,7 +25,7 @@
+  ***************************************************************************/
+ 
+ import QtQuick 2.0
+-import Qt.labs.controls 1.0
++import QtQuick.Controls 2.0
+ import Fluid.Ui 1.0 as FluidUi
+ import org.hawaiios.launcher 0.1 as CppLauncher
+ 
+diff --git a/shell/launcher/LauncherDelegate.qml b/shell/launcher/LauncherDelegate.qml
+index e176d15..2cc9d16 100644
+--- a/shell/launcher/LauncherDelegate.qml
++++ b/shell/launcher/LauncherDelegate.qml
+@@ -26,8 +26,8 @@
+ 
+ import QtQuick 2.0
+ import QtQuick.Layouts 1.1
+-import Qt.labs.controls 1.0
+-import Qt.labs.controls.material 1.0
++import QtQuick.Controls 2.0
++import QtQuick.Controls.Material 2.0
+ import Fluid.Ui 1.0 as FluidUi
+ import "../components" as CustomComponents
+ 
+diff --git a/shell/launcher/LauncherGridDelegate.qml b/shell/launcher/LauncherGridDelegate.qml
+index eec2d13..28dd7d9 100644
+--- a/shell/launcher/LauncherGridDelegate.qml
++++ b/shell/launcher/LauncherGridDelegate.qml
+@@ -26,8 +26,8 @@
+ 
+ import QtQuick 2.0
+ import QtQuick.Layouts 1.0
+-import Qt.labs.controls 1.0
+-import Qt.labs.controls.material 1.0
++import QtQuick.Controls 2.0
++import QtQuick.Controls.Material 2.0
+ import Fluid.Ui 1.0 as FluidUi
+ 
+ Rectangle {
+diff --git a/shell/launcher/LauncherMenu.qml b/shell/launcher/LauncherMenu.qml
+index 50de7bf..a53aa1d 100644
+--- a/shell/launcher/LauncherMenu.qml
++++ b/shell/launcher/LauncherMenu.qml
+@@ -25,7 +25,7 @@
+  ***************************************************************************/
+ 
+ import QtQuick 2.0
+-import Qt.labs.controls 1.0
++import QtQuick.Controls 2.0
+ import Fluid.Ui 1.0 as FluidUi
+ import org.hawaiios.launcher 0.1 as CppLauncher
+ import "../components" as CustomComponents
+diff --git a/shell/launcher/LauncherPopOver.qml b/shell/launcher/LauncherPopOver.qml
+index bb1f1e7..33e3ddd 100644
+--- a/shell/launcher/LauncherPopOver.qml
++++ b/shell/launcher/LauncherPopOver.qml
+@@ -26,7 +26,8 @@
+ 
+ import QtQuick 2.2
+ import QtQuick.Layouts 1.0
+-import Qt.labs.controls 1.0
++import QtQuick.Controls 2.0
++import QtQuick.Controls.Material 2.0
+ import Hawaii.Controls 1.0 as Controls
+ import Fluid.Ui 1.0 as FluidUi
+ import "../components" as CustomComponents
+@@ -37,7 +38,7 @@ Popup {
+ 
+     id: launcherPopOver
+     focus: true
+-    closePolicy: Popup.OnEscape | Popup.OnPressOutside
++    closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
+     implicitWidth: mainLayout.implicitWidth +
+                    launcherPopOver.leftPadding + launcherPopOver.rightPadding +
+                    launcherPopOver.leftMargin + launcherPopOver.rightMargin
+@@ -45,6 +46,8 @@ Popup {
+                     launcherPopOver.topPadding + launcherPopOver.bottomPadding +
+                     launcherPopOver.topMargin + launcherPopOver.bottomMargin
+ 
++    Material.theme: Material.Dark
++
+     ColumnLayout {
+         id: mainLayout
+         spacing: FluidUi.Units.smallSpacing
+diff --git a/shell/screens/LockScreen.qml b/shell/screens/LockScreen.qml
+index 000e817..f247368 100644
+--- a/shell/screens/LockScreen.qml
++++ b/shell/screens/LockScreen.qml
+@@ -27,8 +27,8 @@
+ import QtQuick 2.4
+ import QtQuick.Layouts 1.0
+ import QtGraphicalEffects 1.0
+-import Qt.labs.controls 1.0
+-import Qt.labs.controls.material 1.0
++import QtQuick.Controls 2.0
++import QtQuick.Controls.Material 2.0
+ import Fluid.Ui 1.0 as FluidUi
+ import Fluid.Effects 1.0 as FluidEffects
+ 
+diff --git a/shell/screens/LogoutScreen.qml b/shell/screens/LogoutScreen.qml
+index 0e649e3..34c61fc 100644
+--- a/shell/screens/LogoutScreen.qml
++++ b/shell/screens/LogoutScreen.qml
+@@ -27,8 +27,8 @@
+ import QtQuick 2.4
+ import QtQuick.Layouts 1.0
+ import QtGraphicalEffects 1.0
+-import Qt.labs.controls 1.0
+-import Qt.labs.controls.material 1.0
++import QtQuick.Controls 2.0
++import QtQuick.Controls.Material 2.0
+ import Hawaii.Controls 1.0 as Controls
+ import Fluid.Ui 1.0 as FluidUi
+ import "../components" as CustomComponents
+diff --git a/shell/screens/SplashScreen.qml b/shell/screens/SplashScreen.qml
+index b401170..861def1 100644
+--- a/shell/screens/SplashScreen.qml
++++ b/shell/screens/SplashScreen.qml
+@@ -26,7 +26,7 @@
+ 
+ import QtQuick 2.0
+ import QtGraphicalEffects 1.0
+-import Qt.labs.controls 1.0
++import QtQuick.Controls 2.0
+ 
+ Item {
+     Image {
+diff --git a/shell/windows/WindowMenu.qml b/shell/windows/WindowMenu.qml
+index baec9a2..9fd09a1 100644
+--- a/shell/windows/WindowMenu.qml
++++ b/shell/windows/WindowMenu.qml
+@@ -25,7 +25,7 @@
+  ***************************************************************************/
+ 
+ import QtQuick 2.0
+-import Qt.labs.controls 1.0
++import QtQuick.Controls 2.0
+ import Fluid.Ui 1.0 as FluidUi
+ import "../components" as CustomComponents
+ 
+-- 
+2.9.0
+

@@ -23,9 +23,13 @@
   #:use-module (gnu packages gnome)
   #:use-module (gnu packages gstreamer)
   #:use-module (gnu packages kde-frameworks)
+  #:use-module (gnu packages linux)
+  #:use-module (gnu packages lxqt)
   #:use-module (gnu packages pkg-config)
   #:use-module (gnu packages polkit)
+  #:use-module (gnu packages pulseaudio)
   #:use-module (gnu packages qt)
+  #:use-module (gnu packages xdisorg)
   #:use-module (guix build-system cmake)
   #:use-module (guix download)
   #:use-module (guix packages)
@@ -229,3 +233,82 @@ projects related to the Hawaii desktop environment.")
     (synopsis "Wallpapers for Hawaii desktop environment")
     (description "Wallpapers for Hawaii desktop environment.")
     (license license:lgpl3+)))
+
+(define-public hawaii-shell
+  (package
+    (name "hawaii-shell")
+    (version "0.8.0")
+    (source (origin
+              (method url-fetch)
+              (uri (string-append
+                    "https://github.com/hawaii-desktop/hawaii-shell"
+                    "/releases/download/v" version "/"
+                    "hawaii-shell-" version ".tar.xz"))
+              (sha256
+               (base32
+                "1x1i4kwpgizxmr15wrcrdph3wyvmdiygkpa0zhmxl7q65gg3986g"))))
+    (build-system cmake-build-system)
+    (native-inputs
+     `(("extra-cmake-modules" ,extra-cmake-modules)
+       ("pkg-config" ,pkg-config)))
+    (inputs
+     `(("alsa-lib" ,alsa-lib)
+       ("fluid" ,fluid)
+       ("glib" ,glib)
+       ("greenisland" ,greenisland)
+       ("hawaii-icon-theme" ,hawaii-icon-theme)
+       ("hawaii-wallpapers" ,hawaii-wallpapers)
+       ("hawaii-workspace" ,hawaii-workspace)
+       ("libhawaii" ,libhawaii)
+       ("libqtxdg" ,libqtxdg)
+       ("mobile-broadband-provider-info" ,mobile-broadband-provider-info)
+       ("modemmanager-qt" ,modemmanager-qt)
+       ("networkmanager-qt" ,networkmanager-qt)
+       ("libxkbcommon" ,libxkbcommon)
+       ("linux-pam" ,linux-pam)
+       ("pulseaudio" ,pulseaudio)
+       ("qtbase" ,qtbase)
+       ("qtdeclarative" ,qtdeclarative)
+       ("qtgraphicaleffects" ,qtgraphicaleffects)
+       ("qtquickcontrols" ,qtquickcontrols)
+       ("qtquickcontrols2" ,qtquickcontrols2)
+       ("qtsvg" ,qtsvg)
+       ("qtwayland" ,qtwayland)
+       ("solid" ,solid)
+       ("wayland" ,wayland)))
+    (arguments
+     `(#:configure-flags
+       (list "-DENABLE_SYSTEMD=OFF"
+             (string-append "-DQML_INSTALL_DIR="
+                            (assoc-ref %outputs "out") "/qml"))
+       #:modules ((guix build cmake-build-system)
+                  (guix build qt-utils)
+                  (guix build utils))
+       #:imported-modules (,@%cmake-build-system-modules
+                           (guix build qt-utils))
+       #:phases
+       (modify-phases %standard-phases
+         (add-after 'unpack 'patch-hawaii-session
+           (lambda _
+             (substitute* "scripts/hawaii-session.in"
+               (("@CMAKE_INSTALL_FULL_BINDIR@/greenisland-launcher")
+                (which "greenisland-launcher")))
+             #t))
+         (add-after 'install 'wrap-programs
+           (lambda* (#:key inputs outputs #:allow-other-keys)
+             (let ((out (assoc-ref outputs "out"))
+                   (workspace (assoc-ref inputs "hawaii-workspace")))
+               (wrap-qt-program out "hawaii")
+               (wrap-qt-program out "hawaii-session")
+               (wrap-program (string-append out "/bin/hawaii-session")
+                 `("GSETTINGS_SCHEMA_DIR" ":" prefix
+                   (,(string-append workspace "/share/glib-2.0/schemas")))))
+             #t)))))
+    (home-page "https://github.com/hawaii-desktop/hawaii-shell")
+    (synopsis "QtQuick and Wayland desktop shell")
+    (description "This is the Hawaii desktop environment shell and workspace.
+It contains a Qt platform theme plugin, session manager, QML plugins and a
+convergent shell for multiple form factors such as desktops, netbooks, phones
+and tablets.")
+    ;; Dual licensed
+    (license (list license:gpl2+ license:lgpl2.1+))))
