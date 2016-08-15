@@ -312,3 +312,51 @@ convergent shell for multiple form factors such as desktops, netbooks, phones
 and tablets.")
     ;; Dual licensed
     (license (list license:gpl2+ license:lgpl2.1+))))
+
+(define-public hawaii-terminal
+  (package
+    (name "hawaii-terminal")
+    (version "0.6.0")
+    (source (origin
+              (method url-fetch)
+              (uri (string-append
+                    "https://github.com/hawaii-desktop/hawaii-terminal"
+                    "/releases/download/v" version "/"
+                    "hawaii-terminal-" version ".tar.xz"))
+              (sha256
+               (base32
+                "0cksjfacx4k2v0v66bb32fxa4jsa9icllzyizs83s4axm73xd3mx"))))
+    (build-system cmake-build-system)
+    (native-inputs
+     `(("extra-cmake-modules" ,extra-cmake-modules)))
+    (inputs
+     `(("qtbase" ,qtbase)
+       ("qtdeclarative" ,qtdeclarative)
+       ("qtquickcontrols" ,qtquickcontrols)))
+    (arguments
+     `(#:configure-flags
+       (list (string-append "-DQML_INSTALL_DIR="
+                            (assoc-ref %outputs "out") "/qml"))
+       #:modules ((guix build cmake-build-system)
+                  (guix build qt-utils)
+                  (guix build utils))
+       #:imported-modules (,@%cmake-build-system-modules
+                           (guix build qt-utils))
+       #:phases
+       (modify-phases %standard-phases
+         (add-after 'unpack 'patch-desktop-file
+           (lambda* (#:key outputs #:allow-other-keys)
+             (substitute* "data/org.hawaiios.terminal.desktop"
+               (("hawaii-terminal")
+                (string-append (assoc-ref outputs "out")
+                               "/bin/hawaii-terminal")))
+             #t))
+         (add-after 'install 'wrap-program
+           (lambda* (#:key outputs #:allow-other-keys)
+             (let ((out (assoc-ref outputs "out")))
+               (wrap-qt-program out "hawaii-terminal"))
+             #t)))))
+    (home-page "https://github.com/hawaii-desktop/hawaii-terminal")
+    (synopsis "Terminal emulator")
+    (description "Terminal emulator for the Hawaii desktop environment.")
+    (license license:gpl2+)))
