@@ -360,3 +360,59 @@ and tablets.")
     (synopsis "Terminal emulator")
     (description "Terminal emulator for the Hawaii desktop environment.")
     (license license:gpl2+)))
+
+(define-public hawaii-system-preferences
+  (package
+    (name "hawaii-system-preferences")
+    (version "0.8.0")
+    (source (origin
+              (method url-fetch)
+              (uri (string-append
+                    "https://github.com/hawaii-desktop/hawaii-system-preferences"
+                    "/releases/download/v" version "/"
+                    "hawaii-system-preferences-" version ".tar.xz"))
+              (sha256
+               (base32
+                "0dxsm1lapw04j5glizqhaf6g6d16i7fnyfxbsflwsa9xspmhszr1"))))
+    (build-system cmake-build-system)
+    (native-inputs
+     `(("extra-cmake-modules" ,extra-cmake-modules)
+       ("qttools" ,qttools)))
+    (inputs
+     `(("fluid" ,fluid)
+       ("greenisland" ,greenisland)
+       ("libhawaii" ,libhawaii)
+       ("polkit-qt" ,polkit-qt)
+       ("qtbase" ,qtbase)
+       ("qtdeclarative" ,qtdeclarative)
+       ("qtquickcontrols" ,qtquickcontrols)
+       ("qtquickcontrols2" ,qtquickcontrols2)
+       ("wayland" ,wayland)))
+    (arguments
+     `(#:configure-flags
+       (list (string-append "-DQML_INSTALL_DIR="
+                            (assoc-ref %outputs "out") "/qml"))
+       #:modules ((guix build cmake-build-system)
+                  (guix build qt-utils)
+                  (guix build utils))
+       #:imported-modules (,@%cmake-build-system-modules
+                           (guix build qt-utils))
+       #:phases
+       (modify-phases %standard-phases
+         (add-after 'unpack 'patch-desktop-file
+           (lambda* (#:key outputs #:allow-other-keys)
+             (substitute* "data/org.hawaiios.SystemPreferences.desktop"
+               (("hawaii-system-preferences")
+                (string-append (assoc-ref outputs "out")
+                               "/bin/hawaii-system-preferences")))
+             #t))
+         (add-after 'install 'wrap-program
+           (lambda* (#:key outputs #:allow-other-keys)
+             (let ((out (assoc-ref outputs "out")))
+               (wrap-qt-program out "hawaii-system-preferences"))
+           #t)))))
+    (home-page "https://github.com/hawaii-desktop/hawaii-system-preferences")
+    (synopsis "System preferences application and modules")
+    (description "System preferences for the Hawaii desktop environment.")
+    ;; Dual licensed
+    (license (list license:gpl2+ license:lgpl2.1+))))
