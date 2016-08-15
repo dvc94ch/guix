@@ -20,6 +20,7 @@
   #:use-module (gnu packages display-manager)
   #:use-module (gnu packages freedesktop)
   #:use-module (gnu packages glib)
+  #:use-module (gnu packages gnome)
   #:use-module (gnu packages gstreamer)
   #:use-module (gnu packages kde-frameworks)
   #:use-module (gnu packages pkg-config)
@@ -177,3 +178,29 @@ projects related to the Hawaii desktop environment.")
     (description "Base applications for the Hawaii desktop environment.")
     ;; Dual licensed
     (license (list license:gpl2+ license:lgpl2.1+))))
+
+(define-public hawaii-icon-theme
+  (package
+    (name "hawaii-icon-theme")
+    (version "0.8.0")
+    (source (origin
+              (method url-fetch)
+              (uri (string-append
+                    "https://github.com/hawaii-desktop/hawaii-icon-theme"
+                    "/releases/download/v" version "/"
+                    "hawaii-icon-theme-" version ".tar.xz"))
+              (sha256
+               (base32
+                "142xz2fl9y6hd08bsn7h4bnmf2yz47jxvs783vrwry5wylqfdddn"))))
+    (build-system cmake-build-system)
+    (native-inputs
+     `(("extra-cmake-modules" ,extra-cmake-modules)))
+    (inputs
+     `(("hicolor-icon-theme" ,hicolor-icon-theme)))
+    (arguments
+     `(#:tests? #f)) ; No tests
+    (home-page "https://github.com/hawaii-desktop/hawaii-icon-theme")
+    (synopsis "Icon and cursor theme")
+    (description "Icon and cursor themes for the Hawaii desktop environment.")
+    ;; Dual licensed
+    (license (list license:gpl3+ license:lgpl3+))))
