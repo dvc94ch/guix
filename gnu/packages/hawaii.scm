@@ -416,3 +416,48 @@ and tablets.")
     (description "System preferences for the Hawaii desktop environment.")
     ;; Dual licensed
     (license (list license:gpl2+ license:lgpl2.1+))))
+
+(define-public eyesight
+  (package
+    (name "eyesight")
+    (version "0.1.4")
+    (source (origin
+              (method url-fetch)
+              (uri (string-append
+                    "https://github.com/hawaii-desktop/eyesight"
+                    "/releases/download/v" version "/"
+                    "eyesight-" version ".tar.xz"))
+              (sha256
+               (base32
+                "0531ivvs315mpkrmdpkgb99s6fsr294zv0gdzrbpp9nmkwpslkkp"))))
+    (build-system cmake-build-system)
+    (native-inputs
+     `(("extra-cmake-modules" ,extra-cmake-modules)
+       ("qttools" ,qttools)))
+    (inputs
+     `(("qtbase" ,qtbase)))
+    (arguments
+     `(#:tests? #f ; No tests
+       #:modules ((guix build cmake-build-system)
+                  (guix build qt-utils)
+                  (guix build utils))
+       #:imported-modules (,@%cmake-build-system-modules
+                           (guix build qt-utils))
+       #:phases
+       (modify-phases %standard-phases
+         (add-after 'unpack 'patch-desktop-file
+           (lambda* (#:key outputs #:allow-other-keys)
+             (substitute* "data/eyesight.desktop"
+               (("eyesight")
+                (string-append (assoc-ref outputs "out")
+                               "/bin/eyesight")))
+             #t))
+         (add-after 'install 'wrap-program
+           (lambda* (#:key outputs #:allow-other-keys)
+             (let ((out (assoc-ref outputs "out")))
+               (wrap-qt-program out "eyesight"))
+             #t)))))
+    (home-page "https://github.com/hawaii-desktop/eyesight")
+    (synopsis "Image viewer")
+    (description "Image viewer for the Hawaii desktop environment.")
+    (license license:gpl2+)))
