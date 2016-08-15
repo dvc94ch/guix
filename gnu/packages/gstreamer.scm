@@ -4,6 +4,7 @@
 ;;; Copyright © 2015, 2016 Sou Bunnbu <iyzsong@gmail.com>
 ;;; Copyright © 2015 Mark H Weaver <mhw@netris.org>
 ;;; Copyright © 2016 Efraim Flashner <efraim@flashner.co.il>
+;;; Copyright © 2016 David Craven <david@craven.ch>
 ;;;
 ;;; This file is part of GNU Guix.
 ;;;
@@ -24,11 +25,14 @@
   #:use-module ((guix licenses) #:prefix license:)
   #:use-module (guix packages)
   #:use-module (guix download)
+  #:use-module (guix git-download)
+  #:use-module (guix build-system cmake)
   #:use-module (guix build-system gnu)
   #:use-module (guix utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages audio)
   #:use-module (gnu packages bison)
+  #:use-module (gnu packages boost)
   #:use-module (gnu packages cdrom)
   #:use-module (gnu packages curl)
   #:use-module (gnu packages compression)
@@ -462,3 +466,50 @@ be used by Python applications using GStreamer.")
     (propagated-inputs
      `(("gst-plugins-base" ,gst-plugins-base)
        ("python-pygobject" ,python2-pygobject)))))
+
+(define-public qt-gstreamer
+  (let ((commit "fc159e5c4c8ffeabdc7319514c6bb19c9c9e1d3b")
+        (revision "1"))
+    (package
+      (name "qt-gstreamer")
+      (version (string-append "1.2.0-" revision "."
+                              (string-take commit 7)))
+      (source (origin
+                (method git-fetch)
+                (uri (git-reference
+                      (url "https://cgit.freedesktop.org/gstreamer/qt-gstreamer")
+                      (commit commit)))
+                (sha256
+                 (base32
+                  "1h3xff5bpdl0sigii82m1r10rbvi21ibabi1hnfmm3lqf7rk0giz"))))
+      (build-system cmake-build-system)
+      (native-inputs
+       `(("glib:bin" ,glib "bin")
+         ("pkg-config" ,pkg-config)))
+      (propagated-inputs
+       ; Headers contain #include <boost/config.hpp>
+       ;                 #include <boost/mpl/if.hpp>
+       ;                 #include <boost/type_traits.hpp>
+       ;                 #include <boost/utility/enable_if.hpp>
+       `(("boost" ,boost)))
+      (inputs
+       `(("glib" ,glib)
+         ("gstreamer" ,gstreamer)
+         ("gst-libav" ,gst-libav)
+         ("gst-plugins-base" ,gst-plugins-base)
+         ("qtbase" ,qtbase)
+         ("qtdeclarative" ,qtdeclarative)))
+      (arguments
+       `(#:configure-flags
+          '("-DQT_VERSION=5"
+            "-DUSE_GST_PLUGIN_DIR=OFF"
+            "-DUSE_QT_PLUGIN_DIR=OFF")
+         #:validate-runpath? #f))
+      (home-page "https://gstreamer.freedesktop.org/modules/qt-gstreamer.html")
+      (synopsis "C++ bindings for GStreamer with a Qt-style API")
+      (description "QtGStreamer is a set of libraries providing C++ bindings for
+  GStreamer with a Qt-style API, plus some helper classes and elements for
+  integrating GStreamer better in Qt applications.  The goal of this module is to
+  allow easy use of GStreamer for applications targetting MeeGo Mobile or the KDE
+  desktop.")
+      (license license:lgpl2.1+))))
