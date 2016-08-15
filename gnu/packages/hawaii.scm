@@ -204,3 +204,28 @@ projects related to the Hawaii desktop environment.")
     (description "Icon and cursor themes for the Hawaii desktop environment.")
     ;; Dual licensed
     (license (list license:gpl3+ license:lgpl3+))))
+
+(define-public hawaii-wallpapers
+  (package
+    (name "hawaii-wallpapers")
+    (version "0.8.0")
+    (source (origin
+              (method url-fetch)
+              (uri (string-append
+                    "https://github.com/hawaii-desktop/hawaii-wallpapers"
+                    "/releases/download/v" version "/"
+                    "hawaii-wallpapers-" version ".tar.xz"))
+              (sha256
+               (base32
+                "1pbgjrc3v0lsm6d5ap3kikgp989lficsxazhfpv9kwar5ix12i26"))))
+    (build-system cmake-build-system)
+    (native-inputs
+     `(("extra-cmake-modules" ,extra-cmake-modules)))
+    (inputs
+     `(("qtbase" ,qtbase)))
+    (arguments
+     `(#:tests? #f)) ; No tests
+    (home-page "https://github.com/hawaii-desktop/hawaii-wallpapers")
+    (synopsis "Wallpapers for Hawaii desktop environment")
+    (description "Wallpapers for Hawaii desktop environment.")
+    (license license:lgpl3+)))
