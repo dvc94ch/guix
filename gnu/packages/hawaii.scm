@@ -259,6 +259,8 @@ projects related to the Hawaii desktop environment.")
        ("hawaii-icon-theme" ,hawaii-icon-theme)
        ("hawaii-wallpapers" ,hawaii-wallpapers)
        ("hawaii-workspace" ,hawaii-workspace)
+       ("hawaii-terminal" ,hawaii-terminal) ;remove
+       ("dump-environment" ,dump-environment) ;remove
        ("libhawaii" ,libhawaii)
        ("libqtxdg" ,libqtxdg)
        ("mobile-broadband-provider-info" ,mobile-broadband-provider-info)
@@ -294,6 +296,21 @@ projects related to the Hawaii desktop environment.")
                (("@CMAKE_INSTALL_FULL_BINDIR@/greenisland-launcher")
                 (which "greenisland-launcher")))
              #t))
+         ;;(add-after 'unpack 'patch-xdg-data-dirs
+         ;;  (lambda _
+         ;;    ;; Always set XDG_DATA_DIRS
+         ;;    (substitute* "compositor/main.cpp"
+         ;;      (("if \\(qEnvironmentVariableIsEmpty\\(\"XDG_DATA_DIRS\"\\)\\)") ""))
+         ;;    ;; Always set XDG_CONFIG_DIRS
+         ;;    (substitute* "compositor/main.cpp"
+         ;;      (("if \\(qEnvironmentVariableIsEmpty\\(\"XDG_CONFIG_DIRS\"\\)\\)") ""))
+         ;;    ;; Set XDG_DATA_DIRS to /run/current-system/profile/share
+         ;;    (substitute* "compositor/main.cpp"
+         ;;      (("/usr/local/share/:/usr/share/") "/run/current-system/profile/share"))
+         ;;    ;; Set XDG_CONFIG_DIRS to /run/current-system/profile/etc/xdg
+         ;;    (substitute* "compositor/main.cpp"
+         ;;      (("/etc/xdg") "/run/current-system/profile/etc/xdg"))
+         ;;    #t))
          (add-after 'install 'wrap-programs
            (lambda* (#:key inputs outputs #:allow-other-keys)
              (let ((out (assoc-ref outputs "out"))
@@ -332,7 +349,10 @@ and tablets.")
     (inputs
      `(("qtbase" ,qtbase)
        ("qtdeclarative" ,qtdeclarative)
-       ("qtquickcontrols" ,qtquickcontrols)))
+       ("qtquickcontrols" ,qtquickcontrols)
+       ("qtwayland" ,qtwayland)
+       ("hawaii-workspace" ,hawaii-workspace)
+       ("hawaii-widget-styles" ,hawaii-widget-styles)))
     (arguments
      `(#:configure-flags
        (list (string-append "-DQML_INSTALL_DIR="
@@ -511,3 +531,59 @@ and tablets.")
     (synopsis "Hawaii theme for plymouth")
     (description "Hawaii theme for plymouth.")
     (license #f)))
+
+(use-modules (guix build-system trivial))
+
+(define-public dump-environment
+  (package
+    (name "dump-environment")
+    (version "1")
+    (source #f)
+    (build-system trivial-build-system)
+    (outputs '("out"))
+    (synopsis "Dump environment to file")
+    (arguments
+     `(#:modules ((guix build utils)
+                  (ice-9 format))
+       #:builder
+       (begin
+         (use-modules (guix build utils)
+                      (ice-9 format))
+
+         (let* ((out (assoc-ref %outputs "out"))
+                (bin (string-append out "/bin"))
+                (share (string-append out "/share"))
+                (applications (string-append share "/applications"))
+                (script (string-append bin "/dump-environment.sh"))
+                (desktop (string-append applications "/dump-environment.desktop"))
+                (exec "/run/current-system/profile/bin/env"))
+           (mkdir-p bin)
+           (mkdir-p applications)
+
+           (with-output-to-file script
+             (lambda _
+               (format #t "#!/run/current-system/profile/bin/bash~%")
+               (format #t "env > ~/.local/share/sddm/environment-dump.log~%")))
+
+           (with-output-to-file desktop
+             (lambda _
+               (format #t "[Desktop Entry]~%")
+               (format #t "Name=~a~%" ,name)
+               (format #t "Version=1.0~%")
+               (format #t "Comment=~a~%" ,synopsis)
+               (format #t "Type=Application~%")
+               (format #t "Icon=~a~%" "accessories-calculator")
+               (format #t "TryExec=~a~%" exec)
+               (format #t "Exec=~a~%" exec)
+               (format #t "Categories=~a~%" "X-Hawaii;Development;")))
+
+           (chmod script #o777)))))
+    (home-page #f)
+    (description #f)
+    (license #f)))
+
+;; TODO: Add hawaii-calamares-branding (currently no release available)
+;;       Add qtaccountservice and qtconfiguration
+;;       Use hawaii themes for qtquickcontrols and sddm
+;; FIXME: Failed to get image from provider: image://desktoptheme/input-keyboard
+;;        Finding applications
