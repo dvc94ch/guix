@@ -461,3 +461,32 @@ and tablets.")
     (synopsis "Image viewer")
     (description "Image viewer for the Hawaii desktop environment.")
     (license license:gpl2+)))
+
+(define-public hawaii-widget-styles
+  (package
+    (name "hawaii-widget-styles")
+    (version "0.8.0")
+    (source (origin
+              (method url-fetch)
+              (uri (string-append
+                    "https://github.com/hawaii-desktop/hawaii-widget-styles"
+                    "/releases/download/v" version "/"
+                    "hawaii-widget-styles-" version ".tar.xz"))
+              (sha256
+               (base32
+                "0kch4d1ys51zh0840pjccvba903lrxh37q5vqz1sj0q2vxlaksm1"))))
+    (build-system cmake-build-system)
+    (native-inputs
+     `(("extra-cmake-modules" ,extra-cmake-modules)))
+    (inputs
+     `(("qtbase" ,qtbase)
+       ("qtdeclarative" ,qtdeclarative)
+       ("qtquickcontrols" ,qtquickcontrols)))
+    (arguments
+     `(#:configure-flags
+       (list (string-append "-DQML_INSTALL_DIR="
+                            (assoc-ref %outputs "out") "/qml"))))
+    (home-page "https://github.com/hawaii-desktop/hawaii-widget-styles")
+    (synopsis "Styles for applications using qtquickcontrols")
+    (description "Styles for applications using qtquickcontrols.")
+    (license license:lgpl2.1+)))
