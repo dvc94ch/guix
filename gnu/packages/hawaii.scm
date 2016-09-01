@@ -490,3 +490,24 @@ and tablets.")
     (synopsis "Styles for applications using qtquickcontrols")
     (description "Styles for applications using qtquickcontrols.")
     (license license:lgpl2.1+)))
+
+(define-public hawaii-plymouth-theme
+  (package
+    (name "hawaii-plymouth-theme")
+    (version "0.2.2")
+    (source (origin
+              (method url-fetch)
+              (uri (string-append
+                    "https://github.com/hawaii-desktop/hawaii-plymouth-theme"
+                    "/archive/v" version ".tar.gz"))
+              (file-name (string-append name "-" version ".tar.gz"))
+              (sha256
+               (base32
+                "0wk0pr2s4csz4zbcf6rvw076pbmxwhnk45gw0pkb793spw4pw7ls"))))
+    (build-system cmake-build-system)
+    (arguments
+     `(#:tests? #f)) ; No tests
+    (home-page "https://github.com/hawaii-desktop/hawaii-plymouth-theme")
+    (synopsis "Hawaii theme for plymouth")
+    (description "Hawaii theme for plymouth.")
+    (license #f)))
