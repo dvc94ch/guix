@@ -32,6 +32,7 @@
 
 (define-module (gnu packages admin)
   #:use-module ((guix licenses) #:prefix license:)
+  #:use-module (guix gexp)
   #:use-module (guix packages)
   #:use-module (guix utils)
   #:use-module (guix download)
@@ -140,6 +141,7 @@ and provides a \"top-like\" mode (monitoring).")
   (package
     (name "shepherd")
     (version "0.3.1")
+    (replacement shepherd-local)
     (source (origin
               (method url-fetch)
               (uri (string-append "ftp://alpha.gnu.org/gnu/dmd/shepherd-"
@@ -160,6 +162,32 @@ typical init systems.  It provides dependency-handling through a convenient
 interface and is based on GNU Guile.")
     (license license:gpl3+)
     (home-page "http://www.gnu.org/software/shepherd/")))
+
+(define-public shepherd-local
+  (package
+    (name "shepherd")
+    (version "0.3.1")
+    (source (local-file "/home/dvc/shepherd" #:recursive? #t))
+    (build-system gnu-build-system)
+    (native-inputs
+     `(("pkg-config" ,pkg-config)
+       ("autoconf" ,autoconf)
+       ("automake" ,automake)
+       ("libtool" ,libtool)
+       ("help2man" ,help2man)
+       ("texinfo" ,texinfo)))
+    (inputs
+     `(("guile" ,guile-2.0)))
+    (arguments
+     `(#:configure-flags '("--localstatedir=/var")))
+    (home-page "http://www.gnu.org/software/shepherd/")
+    (synopsis "System service manager")
+    (description
+     "The GNU Shepherd is a daemon-managing daemon, meaning that it supervises
+the execution of system services, replacing similar functionality found in
+typical init systems.  It provides dependency-handling through a convenient
+interface and is based on GNU Guile.")
+    (license license:gpl3+)))
 
 (define-public dfc
   (package
