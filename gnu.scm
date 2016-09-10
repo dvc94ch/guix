@@ -35,6 +35,7 @@
         (gnu system mapped-devices)
         (gnu system file-systems)
         (gnu system grub)                         ; 'grub-configuration'
+        (gnu system u-boot)                       ; 'u-boot-configuration'
         (gnu system pam)
         (gnu system shadow)                       ; 'user-account'
         (gnu system linux-initrd)

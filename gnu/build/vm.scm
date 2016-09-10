@@ -291,6 +291,7 @@ SYSTEM-DIRECTORY is the name of the directory of the 'system' derivation."
 
 (define* (initialize-hard-disk device
                                #:key
+                               grub
                                grub.cfg
                                (partitions '()))
   "Initialize DEVICE as a disk containing all the <partition> objects listed
@@ -309,7 +310,7 @@ passing it a directory name where it is mounted."
     (display "mounting root partition...\n")
     (mkdir-p target)
     (mount (partition-device root) target (partition-file-system root))
-    (install-grub grub.cfg device target)
+    (install-bootloader grub grub.cfg device target)
 
     ;; Register GRUB.CFG as a GC root.
     (register-grub.cfg-root target grub.cfg)

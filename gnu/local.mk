@@ -430,6 +430,7 @@ GNU_SYSTEM_MODULES =				\
   %D%/system.scm				\
   %D%/system/file-systems.scm			\
   %D%/system/grub.scm				\
+  %D%/system/u-boot.scm				\
   %D%/system/install.scm			\
   %D%/system/linux-container.scm		\
   %D%/system/linux-initrd.scm			\

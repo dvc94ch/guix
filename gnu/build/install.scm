@@ -22,8 +22,7 @@
   #:use-module (guix build store-copy)
   #:use-module (srfi srfi-26)
   #:use-module (ice-9 match)
-  #:export (install-grub
-            install-grub-config
+  #:export (install-bootloader
             populate-root-file-system
             reset-timestamps
             register-closure
@@ -45,7 +44,8 @@ MOUNT-POINT.
 Note that the caller must make sure that GRUB.CFG is registered as a GC root
 so that the fonts, background images, etc. referred to by GRUB.CFG are not
 GC'd."
-  (install-grub-config grub.cfg mount-point)
+  (install-bootloader-config grub.cfg (string-append mount-point
+                                                     "/boot/grub/grub.cfg"))
 
   ;; Tell 'grub-install' that there might be a LUKS-encrypted /boot or root
   ;; partition.
@@ -57,18 +57,29 @@ GC'd."
                           device))
     (error "failed to install GRUB")))
 
-(define (install-grub-config grub.cfg mount-point)
-  "Atomically copy GRUB.CFG into boot/grub/grub.cfg on the MOUNT-POINT.  Note
-that the caller must make sure that GRUB.CFG is registered as a GC root so
-that the fonts, background images, etc. referred to by GRUB.CFG are not GC'd."
-  (let* ((target (string-append mount-point "/boot/grub/grub.cfg"))
-         (pivot  (string-append target ".new")))
+(define* (install-u-boot extlinux.conf device mount-point)
+  "Install U-Boot with EXTLINUX.CONF on DEVICE, which is assumed to be mounted on
+MOUNT-POINT."
+  (install-bootloader-config extlinux.conf
+                             (string-append mount-point
+                                            "extlinux/extlinux.conf")))
+
+(define* (install-bootloader-config source target)
+  (let* ((pivot  (string-append target ".new")))
     (mkdir-p (dirname target))
 
-    ;; Copy GRUB.CFG instead of just symlinking it, because symlinks won't
+    ;; Copy bootloader config file instead of just symlinking it, because symlinks won't
     ;; work when /boot is on a separate partition.  Do that atomically.
-    (copy-file grub.cfg pivot)
+    (copy-file source pivot)
     (rename-file pivot target)))
+
+(define* (install-bootloader package-output-name config-filename device mount-point)
+  "Install bootloader with CONFIG-FILENAME on DEVICE, which is assumed to be
+mounted on MOUNT-POINT."
+  (let* ((grub? (string-contains package-output-name "grub"))
+         (bootloader-installer (if grub? install-grub
+                                         install-u-boot)))
+    (bootloader-installer config-filename device mount-point)))
 
 (define (evaluate-populate-directive directive target)
   "Evaluate DIRECTIVE, an sexp describing a file or directory to create under

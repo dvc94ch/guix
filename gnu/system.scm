@@ -48,6 +48,7 @@
   #:use-module (gnu services shepherd)
   #:use-module (gnu services base)
   #:use-module (gnu system grub)
+  #:use-module (gnu system u-boot)
   #:use-module (gnu system shadow)
   #:use-module (gnu system nss)
   #:use-module (gnu system locale)
@@ -92,6 +93,7 @@
 
             operating-system-derivation
             operating-system-profile
+            operating-system-grub
             operating-system-grub.cfg
             operating-system-etc-directory
             operating-system-locale-directory
@@ -726,6 +728,22 @@ listed in OS.  The C library expects to find it under
   "Return the file system that contains the store of OS."
   (store-file-system (operating-system-file-systems os)))
 
+(define (operating-system-grub os)
+  (match (operating-system-bootloader os)
+    ((? grub-configuration? config)
+     (grub-configuration-package config os))
+    ((? u-boot-configuration? config)
+     (u-boot-configuration-package config os))))
+
+(define* (bootloader-configuration-file config store-fs entries
+                                        #:key
+                                        (system (%current-system))
+                                        (old-entries '()))
+  ((match config
+    ((? grub-configuration? config) grub-configuration-file)
+    ((? u-boot-configuration? config) u-boot-configuration-file))
+    config store-fs entries #:system system #:old-entries old-entries))
+
 (define* (operating-system-grub.cfg os #:optional (old-entries '()))
   "Return the GRUB configuration file for OS.  Use OLD-ENTRIES to populate the
 \"old entries\" menu."
@@ -755,8 +773,8 @@ listed in OS.  The C library expects to find it under
                                                     "/boot")
                                    (operating-system-kernel-arguments os)))
                            (initrd initrd)))))
-    (grub-configuration-file (operating-system-bootloader os) entries
-                             #:old-entries old-entries)))
+    (bootloader-configuration-file (operating-system-bootloader os) entries
+                                   #:old-entries old-entries)))
 
 (define (grub-device fs)
   "Given FS, a <file-system> object, return a value suitable for use as the

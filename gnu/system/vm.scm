@@ -175,6 +175,7 @@ made available under the /xchg CIFS share."
                      (file-system-type "ext4")
                      file-system-label
                      os-derivation
+                     grub
                      grub-configuration
                      (register-closures? #t)
                      (inputs '())
@@ -231,6 +232,7 @@ the image."
                                      (initializer initialize)))))
              (initialize-hard-disk "/dev/vda"
                                    #:partitions partitions
+                                   #:grub #$grub
                                    #:grub.cfg #$grub-configuration)
              (reboot)))))
    #:system system
@@ -283,9 +285,11 @@ to USB sticks meant to be read-only."
                                   file-systems-to-keep)))))
 
     (mlet* %store-monad ((os-drv   (operating-system-derivation os))
+                         (grub     (package->derivation (operating-system-grub os)))
                          (grub.cfg (operating-system-grub.cfg os)))
       (qemu-image #:name name
                   #:os-derivation os-drv
+                  #:grub grub
                   #:grub-configuration grub.cfg
                   #:disk-image-size disk-image-size
                   #:disk-image-format "raw"
@@ -329,6 +333,7 @@ of the GNU system as described by OS."
         ((os-drv      (operating-system-derivation os))
          (grub.cfg    (operating-system-grub.cfg os)))
       (qemu-image  #:os-derivation os-drv
+                   #:grub grub
                    #:grub-configuration grub.cfg
                    #:disk-image-size disk-image-size
                    #:file-system-type file-system-type
@@ -414,12 +419,14 @@ When FULL-BOOT? is true, return an image that does a complete boot sequence,
 bootloaded included; thus, make a disk image that contains everything the
 bootloader refers to: OS kernel, initrd, bootloader data, etc."
   (mlet* %store-monad ((os-drv   (operating-system-derivation os))
+                       (grub (package->derivation (operating-system-grub os)))
                        (grub.cfg (operating-system-grub.cfg os)))
     ;; XXX: When FULL-BOOT? is true, we end up creating an image that contains
     ;; GRUB.CFG and all its dependencies, including the output of OS-DRV.
     ;; This is more than needed (we only need the kernel, initrd, GRUB for its
     ;; font, and the background image), but it's hard to filter that.
     (qemu-image #:os-derivation os-drv
+                #:grub grub
                 #:grub-configuration grub.cfg
                 #:disk-image-size disk-image-size
                 #:inputs (if full-boot?

@@ -123,7 +123,7 @@ TARGET, and register them."
               (map (cut copy-item <> target #:log-port log-port)
                    to-copy))))
 
-(define (install-grub* grub.cfg device target)
+(define (install-bootloader* grub grub.cfg device target)
   "This is a variant of 'install-grub' with error handling, lifted in
 %STORE-MONAD"
   (let* ((gc-root      (string-append target %gc-roots-directory
@@ -137,7 +137,7 @@ TARGET, and register them."
       ;; 'install-grub' completes (being a bit paranoid.)
       (make-symlink temp-gc-root grub.cfg)
 
-      (munless (false-if-exception (install-grub grub.cfg device target))
+      (munless (false-if-exception (install-bootloader grub grub.cfg device target))
         (delete-file temp-gc-root)
         (leave (_ "failed to install GRUB on device '~a'~%") device))
 
@@ -147,7 +147,7 @@ TARGET, and register them."
 
 (define* (install os-drv target
                   #:key (log-port (current-output-port))
-                  grub? grub.cfg device)
+                  grub grub? grub.cfg device)
   "Copy the closure of GRUB.CFG, which includes the output of OS-DRV, to
 directory TARGET.  TARGET must be an absolute directory name since that's what
 'guix-register' expects.
@@ -190,7 +190,7 @@ the ownership of '~a' may be incorrect!~%")
       (populate os-dir target)
 
       (mwhen grub?
-        (install-grub* grub.cfg device target)))))
+        (install-bootloader* grub grub.cfg device target)))))
 
 
 ;;;
@@ -654,13 +654,15 @@ building anything."
              (mbegin %store-monad
                (switch-to-system os)
                (mwhen grub?
-                 (install-grub* (derivation->output-path grub.cfg)
-                                device "/"))))
+                 (install-bootloader* (derivation->output-path grub)
+                                      (derivation->output-path grub.cfg)
+                                      device "/"))))
             ((init)
              (newline)
              (format #t (_ "initializing operating system under '~a'...~%")
                      target)
              (install sys (canonicalize-path target)
+                      #:grub grub
                       #:grub? grub?
                       #:grub.cfg (derivation->output-path grub.cfg)
                       #:device device))

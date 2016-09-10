@@ -50,9 +50,11 @@
 
             grub-configuration
             grub-configuration?
+            grub-configuration-package
             grub-configuration-device
             grub-configuration-grub
 
+            <menu-entry>
             menu-entry
             menu-entry?
 
@@ -154,6 +156,9 @@ denoting a file name."
                           (svg->png #$svg #$output
                                     #:width #$width
                                     #:height #$height)))))
+
+(define (grub-configuration-package config os)
+  grub)
 
 (define* (grub-background-image config #:key (width 1024) (height 768))
   "Return the GRUB background image defined in CONFIG with a ratio of
