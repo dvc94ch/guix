@@ -176,11 +176,11 @@ loaded at boot time in the order in which they appear."
 
   (define linux-modules
     ;; Modules added to the initrd and loaded from the initrd.
-    `("ahci"                                  ;for SATA controllers
-      "usb-storage" "uas"                     ;for the installation image etc.
-      "usbhid" "hid-generic" "hid-apple"      ;keyboards during early boot
-      "dm-crypt" "xts" "serpent_generic" "wp512" ;for encrypted root partitions
-      "nvme"                                     ;for new SSD NVMe devices
+    `(;; "ahci"                                  ;for SATA controllers
+      ;; "usb-storage" "uas"                     ;for the installation image etc.
+      ;; "usbhid" "hid-generic" "hid-apple"      ;keyboards during early boot
+      ;; "dm-crypt" "xts" "serpent_generic" "wp512" ;for encrypted root partitions
+      ;; "nvme"                                     ;for new SSD NVMe devices
       ,@(if (string-match "^(x86_64|i[3-6]86)-" (%current-system))
             '("pata_acpi" "pata_atiixp"    ;for ATA controllers
               "isci")                      ;for SAS controllers like Intel C602
