@@ -55,7 +55,8 @@
      `(("qtbase" ,qtbase)
        ("qtdeclarative" ,qtdeclarative)
        ("qtquickcontrols" ,qtquickcontrols)
-       ("qtquickcontrols2" ,qtquickcontrols2)))
+       ("qtquickcontrols2" ,qtquickcontrols2)
+       ("qtsvg" ,qtsvg)))
     (arguments
      `(#:configure-flags
        (list (string-append "-DQML_INSTALL_DIR="
@@ -142,6 +143,7 @@ projects related to the Hawaii desktop environment.")
        ("qtdeclarative" ,qtdeclarative)
        ("qtquickcontrols" ,qtquickcontrols)
        ("qtquickcontrols2" ,qtquickcontrols2)
+       ("qtsvg" ,qtsvg)
        ("qt-gstreamer" ,qt-gstreamer)
        ("wayland" ,wayland)))
     (arguments
@@ -261,6 +263,8 @@ projects related to the Hawaii desktop environment.")
        ("hawaii-workspace" ,hawaii-workspace)
        ("hawaii-terminal" ,hawaii-terminal) ;remove
        ("dump-environment" ,dump-environment) ;remove
+       ("hawaii-widget-styles" ,hawaii-widget-styles) ;remove
+       ("oxygen-icons" ,oxygen-icons) ; remove
        ("libhawaii" ,libhawaii)
        ("libqtxdg" ,libqtxdg)
        ("mobile-broadband-provider-info" ,mobile-broadband-provider-info)
