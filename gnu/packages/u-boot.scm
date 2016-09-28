@@ -27,7 +27,8 @@
   #:use-module (gnu packages bison)
   #:use-module (gnu packages cross-base)
   #:use-module (gnu packages flex)
-  #:use-module (gnu packages python))
+  #:use-module (gnu packages python)
+  #:use-module (ice-9 match))
 
 (define-public dtc
   (package
@@ -83,54 +84,84 @@ also initializes the boards (RAM etc).")
     (license license:gpl2+)))
 
 (define (make-u-boot-package board triplet)
-  "Returns a u-boot package for BOARD cross-compiled for TRIPLET."
-  (package
-    (inherit u-boot)
-    (name (string-append "u-boot-" (string-downcase board)))
-    (native-inputs
-     `(("cross-gcc" ,(cross-gcc triplet))
-       ("cross-binutils" ,(cross-binutils triplet))
-       ,@(package-native-inputs u-boot)))
-    (arguments
-     `(#:test-target "test"
-       #:make-flags
-       (list "HOSTCC=gcc" (string-append "CROSS_COMPILE=" ,triplet "-"))
-       #:phases
-       (modify-phases %standard-phases
-         (replace 'configure
-           (lambda* (#:key outputs make-flags #:allow-other-keys)
-             (let ((config-name (string-append ,board "_defconfig")))
-               (if (file-exists? (string-append "configs/" config-name))
-                   (zero? (apply system* "make" `(,@make-flags ,config-name)))
-                   (begin
-                     (display "Invalid board name. Valid board names are:")
-                     (let ((dir (opendir "configs"))
-                           (suffix-length (string-length "_defconfig")))
-                       (do ((file-name (readdir dir) (readdir dir)))
-                           ((eof-object? file-name))
-                         (when (string-suffix? "_defconfig" file-name)
-                           (format #t "- ~A\n"
-                                   (string-drop-right file-name suffix-length))))
-                       (closedir dir))
-                     #f)))))
-         (replace 'install
-           (lambda* (#:key outputs make-flags #:allow-other-keys)
-             (let* ((out (assoc-ref outputs "out"))
-                    (libexec (string-append out "/libexec"))
-                    (uboot-files (find-files "." ".*\\.(bin|efi|spl)$")))
-               (mkdir-p libexec)
-               (for-each
-                (lambda (file)
-                  (let ((target-file (string-append libexec "/" file)))
-                    (mkdir-p (dirname target-file))
-                    (copy-file file target-file)))
-                uboot-files)))))))))
+  "Returns a u-boot package for BOARD cross-compiled for TRIPLET. If
+triplet is false or (cross-target-triplet->system triplet) matches
+the %current-system compile natively."
+  (let* ((system (cross-target-triplet->system triplet))
+         (triplet (if (string=? (or system "") (%current-system)) #f triplet)))
+    (package
+      (inherit u-boot)
+      (name (string-append "u-boot-" (string-downcase board)))
+      (native-inputs
+       `(,@(package-native-inputs u-boot)
+         ,@(if triplet
+               `(("cross-gcc" ,(cross-gcc triplet))
+                 ("cross-binutils" ,(cross-binutils triplet)))
+               '())))
+      (arguments
+       `(#:test-target "test"
+         #:make-flags
+         (list "HOSTCC=gcc" ,@(if triplet
+                                  `((string-append "CROSS_COMPILE=" ,triplet "-"))
+                                  '()))
+         #:phases
+         (modify-phases %standard-phases
+           (replace 'configure
+             (lambda* (#:key outputs make-flags #:allow-other-keys)
+               (let ((config-name (string-append ,board "_defconfig")))
+                 (if (file-exists? (string-append "configs/" config-name))
+                     (zero? (apply system* "make" (cons config-name make-flags)))
+                     (begin
+                       (display "Invalid board name. Valid board names are:")
+                       (let ((dir (opendir "configs"))
+                             (suffix-length (string-length "_defconfig")))
+                         (do ((file-name (readdir dir) (readdir dir)))
+                             ((eof-object? file-name))
+                           (when (string-suffix? "_defconfig" file-name)
+                             (format #t "- ~A\n"
+                                     (string-drop-right file-name suffix-length))))
+                         (closedir dir))
+                       #f)))))
+           (replace 'install
+             (lambda* (#:key outputs make-flags #:allow-other-keys)
+               (let* ((out (assoc-ref outputs "out"))
+                      (libexec (string-append out "/libexec"))
+                      (uboot-files (find-files "." ".*\\.(bin|efi|spl)$")))
+                 (mkdir-p libexec)
+                 (for-each
+                  (lambda (file)
+                    (let ((target-file (string-append libexec "/" file)))
+                      (mkdir-p (dirname target-file))
+                      (copy-file file target-file)))
+                  uboot-files)))))))))
+
+;;;
+;;; Arch support
+;;;
+
+(define (cross-target-triplet->system triplet)
+  (match triplet
+    (("arm-linux-gnueabihf") "armhf-linux")
+    (("mips64el-linux-gnueabi64") "mips64el-linux")
+    (_ #f)))
+
+(define make-arm-u-boot-package
+  (lambda (board)
+    (make-u-boot-package board "arm-linux-gnueabihf")))
+
+(define make-mips-u-boot-package
+  (lambda (board)
+    (make-u-boot-package board "mips64el-linux-gnuabi64")))
+
+;;;
+;;; Board support
+;;;
 
 (define-public u-boot-vexpress
-  (make-u-boot-package "vexpress_ca9x4" "arm-linux-gnueabihf"))
+  (make-arm-u-boot-package "vexpress_ca9x4"))
 
 (define-public u-boot-malta
-  (make-u-boot-package "malta" "mips64el-linux-gnuabi64"))
+  (make-mips-u-boot-package "malta"))
 
 (define-public u-boot-beagle-bone-black
-  (make-u-boot-package "am335x_boneblack" "arm-linux-gnueabihf"))
+  (make-arm-u-boot-package "am335x_boneblack"))
