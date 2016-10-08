@@ -28,6 +28,7 @@
   #:use-module (gnu packages cross-base)
   #:use-module (gnu packages flex)
   #:use-module (gnu packages python)
+  #:use-module (gnu packages tls)
   #:use-module (ice-9 match))
 
 (define-public dtc
@@ -75,6 +76,7 @@ tree binary files. These are board description files used by Linux and BSD.")
     (native-inputs
      `(("bc" ,bc)
        ("dtc" ,dtc)
+       ("openssl" ,openssl)
        ("python-2" ,python-2)))
     (build-system  gnu-build-system)
     (home-page "http://www.denx.de/wiki/U-Boot/")
@@ -164,3 +166,8 @@ the %current-system compile natively."
 
 (define-public u-boot-beagle-bone-black
   (make-arm-u-boot-package "am335x_boneblack" '("MLO" "u-boot.img")))
+
+(define-public u-boot-zybo
+  ;; http://lists.denx.de/pipermail/u-boot/2015-February/203652.html
+  ;; TODO: Generate boot.bin file.
+  (make-arm-u-boot-package "zynq_zybo" '("u-boot-dtb.img")))
