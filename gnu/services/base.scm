@@ -33,7 +33,8 @@
   #:use-module (gnu system mapped-devices)
   #:use-module (gnu packages admin)
   #:use-module ((gnu packages linux)
-                #:select (alsa-utils crda eudev e2fsprogs fuse gpm kbd lvm2 rng-tools))
+                #:select (alsa-utils crda eudev e2fsprogs fuse
+                          gpm kbd lvm2 rng-tools util-linux))
   #:use-module ((gnu packages base)
                 #:select (canonical-package glibc))
   #:use-module (gnu packages package-management)
@@ -122,6 +123,10 @@
             kmscon-configuration
             kmscon-configuration?
             kmscon-service-type
+
+            getty-configuration
+            getty-configuration?
+            getty-service-type
 
             pam-limits-service-type
             pam-limits-service
@@ -758,6 +763,52 @@ the message of the day, among other things."
   "Return a service to run mingetty according to @var{config}, which specifies
 the tty to run, among other things."
   (service mingetty-service-type config))
+
+(define-record-type* <getty-configuration>
+  ;; Should work for getty from util-linux and busybox/toybox.
+  getty-configuration make-getty-configuration
+  getty-configuration?
+  (getty                   getty-configuration-getty
+                           (default #~(string-append #$util-linux "/sbin/agetty")))
+  (virtual-terminal        getty-configuration-virtual-terminal)
+  (login-program           getty-configuration-login-program
+                           (default #~(string-append #$shadow "/bin/login")))
+  (baud-rate               getty-configuration-baud-rate
+                           (default #f))
+  (handshaking?            getty-configuration-handshaking?
+                           (default #f))
+  (term-type               getty-configuration-term-type
+                           (default "vt102"))
+  (timeout                 getty-configuration-timeout
+                           (default #f)))
+
+(define getty-service-type
+  (shepherd-service-type
+   'getty
+   (lambda (config)
+     (let ((getty (getty-configuration-getty config))
+           (virtual-terminal (getty-configuration-virtual-terminal config))
+           (login-program (getty-configuration-login-program config))
+           (baud-rate (getty-configuration-baud-rate config))
+           (handshaking? (getty-configuration-handshaking? config))
+           (term-type (getty-configuration-term-type config))
+           (timeout (getty-configuration-timeout config)))
+
+       (define getty-command
+         #~(list
+            #$getty "-l" #$login-program
+            #$@(if handshaking? '("-h") '())
+            #$@(if timeout '("-t" (number->string timeout)) '())
+            #$virtual-terminal
+            #$@(if baud-rate '(baud-rate) '())
+            #$term-type))
+
+       (shepherd-service
+        (documentation "getty virtual terminal")
+        (requirement '(user-processes udev))
+        (provision (list (symbol-append 'term- (string->symbol virtual-terminal))))
+        (start #~(make-forkexec-constructor #$getty-command))
+        (stop #~(make-kill-destructor)))))))
 
 (define-record-type* <nscd-configuration> nscd-configuration
   make-nscd-configuration
