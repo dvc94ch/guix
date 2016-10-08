@@ -360,6 +360,13 @@ It has been modified to remove all non-free binary blobs.")
                     #:defconfig "multi_v7_defconfig"
                     #:extra-version "arm-generic"))
 
+(define-public linux-libre-arm-qemu
+  (make-linux-libre %linux-libre-version
+                    %linux-libre-hash
+                    '("armhf-linux")
+                    #:defconfig "versatile_defconfig"
+                    #:extra-version "arm-qemu"))
+
 
 ;;;
 ;;; Pluggable authentication modules (PAM).
