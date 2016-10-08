@@ -83,7 +83,7 @@ tree binary files. These are board description files used by Linux and BSD.")
 also initializes the boards (RAM etc).")
     (license license:gpl2+)))
 
-(define (make-u-boot-package board triplet)
+(define (make-u-boot-package board triplet files-to-install)
   "Returns a u-boot package for BOARD cross-compiled for TRIPLET. If
 triplet is false or (cross-target-triplet->system triplet) matches
 the %current-system compile natively."
@@ -123,17 +123,13 @@ the %current-system compile natively."
                          (closedir dir))
                        #f)))))
            (replace 'install
-             (lambda* (#:key outputs make-flags #:allow-other-keys)
-               (let* ((out (assoc-ref outputs "out"))
-                      (libexec (string-append out "/libexec"))
-                      (uboot-files (find-files "." ".*\\.(bin|efi|spl)$")))
-                 (mkdir-p libexec)
-                 (for-each
-                  (lambda (file)
-                    (let ((target-file (string-append libexec "/" file)))
-                      (mkdir-p (dirname target-file))
-                      (copy-file file target-file)))
-                  uboot-files)))))))))
+             (lambda* (#:key outputs #:allow-other-keys)
+               (for-each (lambda (file)
+                           (let* ((out (assoc-ref outputs "out"))
+                                  (target-file (string-append out "/" file)))
+                             (mkdir-p (dirname target-file))
+                             (copy-file file target-file)))
+                         '(,@files-to-install))))))))))
 
 ;;;
 ;;; Arch support
@@ -146,22 +142,22 @@ the %current-system compile natively."
     (_ #f)))
 
 (define make-arm-u-boot-package
-  (lambda (board)
-    (make-u-boot-package board "arm-linux-gnueabihf")))
+  (lambda (board files-to-install)
+    (make-u-boot-package board "arm-linux-gnueabihf" files-to-install)))
 
 (define make-mips-u-boot-package
-  (lambda (board)
-    (make-u-boot-package board "mips64el-linux-gnuabi64")))
+  (lambda (board files-to-install)
+    (make-u-boot-package board "mips64el-linux-gnuabi64" files-to-install)))
 
 ;;;
 ;;; Board support
 ;;;
 
 (define-public u-boot-vexpress
-  (make-arm-u-boot-package "vexpress_ca9x4"))
+  (make-arm-u-boot-package "vexpress_ca9x4" '("u-boot.bin")))
 
 (define-public u-boot-malta
-  (make-mips-u-boot-package "malta"))
+  (make-mips-u-boot-package "malta" '("u-boot.bin")))
 
 (define-public u-boot-beagle-bone-black
-  (make-arm-u-boot-package "am335x_boneblack"))
+  (make-arm-u-boot-package "am335x_boneblack" '("MLO" "u-boot.img")))
