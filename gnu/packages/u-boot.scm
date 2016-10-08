@@ -159,5 +159,8 @@ the %current-system compile natively."
 (define-public u-boot-malta
   (make-mips-u-boot-package "malta" '("u-boot.bin")))
 
+(define-public u-boot-wandboard
+  (make-arm-u-boot-package "wandboard" '("SPL" "u-boot.img")))
+
 (define-public u-boot-beagle-bone-black
   (make-arm-u-boot-package "am335x_boneblack" '("MLO" "u-boot.img")))
