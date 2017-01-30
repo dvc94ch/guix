@@ -321,6 +321,56 @@ Gnome project.  It includes xml2po tool which makes it easier to translate
 and keep up to date translations of documentation.")
     (license license:gpl2+))) ; xslt under lgpl
 
+(define-public gnome-disk-utility
+  (package
+    (name "gnome-disk-utility")
+    (version "3.22.1")
+    (source (origin
+              (method url-fetch)
+              (uri (string-append "mirror://gnome/sources/" name "/"
+                                  (version-major+minor version) "/"
+                                  name "-" version ".tar.xz"))
+              (sha256
+               (base32
+                "1hqynlcgwm72il2rdml98gcarz0alsgxs5xf6ww2x0czaj3s3953"))))
+    (build-system gnu-build-system)
+    (native-inputs
+     `(("glib:bin" ,glib "bin")
+       ("intltool" ,intltool)
+       ("pkg-config" ,pkg-config)
+       ("docbook-xml" ,docbook-xml)
+       ("docbook-xsl" ,docbook-xsl)
+       ("libxslt" ,libxslt)))
+    (inputs
+     `(("glib" ,glib)
+       ("appstream-glib" ,appstream-glib)
+       ("gnome-settings-daemon" ,gnome-settings-daemon)
+       ("gtk+" ,gtk+)
+       ("libcanberra" ,libcanberra)
+       ("libdvdread" ,libdvdread)
+       ("libnotify" ,libnotify)
+       ("libpwquality" ,libpwquality)
+       ("libsecret" ,libsecret)
+       ("udisks" ,udisks)))
+    (arguments
+     `(#:phases
+       (modify-phases %standard-phases
+         (add-before 'configure 'fix-docbook
+           (lambda* (#:key inputs #:allow-other-keys)
+             (substitute* "doc/man/Makefile.in"
+               (("http://docbook.sourceforge.net/release/xsl/current/manpages/docbook.xsl")
+                (string-append (assoc-ref inputs "docbook-xsl")
+                               "/xml/xsl/docbook-xsl-"
+                               ,(package-version docbook-xsl)
+                               "/manpages/docbook.xsl")))
+             (setenv "XML_CATALOG_FILES"
+                     (string-append (assoc-ref inputs "docbook-xml")
+                                    "/xml/dtd/docbook/catalog.xml")))))))
+    (home-page "")
+    (synopsis "")
+    (description "")
+    (license #f)))
+
 (define-public gcr
   (package
     (name "gcr")
